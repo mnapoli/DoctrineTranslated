@@ -18,4 +18,9 @@ class MyTranslatedString extends TranslatedString
      * @Column(type = "string", nullable=true)
      */
     protected $fr;
+
+    /**
+     * @Column(type = "string", nullable=true)
+     */
+    protected $de;
 }
