@@ -2,14 +2,14 @@
 
 namespace Test\Mnapoli\Translated;
 
-use Mnapoli\Translated\TranslatedStringHelper;
+use Mnapoli\Translated\TranslationHelper;
 use Mnapoli\Translated\TranslationContext;
 use Test\Mnapoli\Translated\Fixture\MyTranslatedString;
 
 /**
- * @covers \Mnapoli\Translated\TranslatedStringHelper
+ * @covers \Mnapoli\Translated\TranslationHelper
  */
-class TranslatedStringHelperTest extends \PHPUnit_Framework_TestCase
+class TranslationHelperTest extends \PHPUnit_Framework_TestCase
 {
     public function testToString()
     {
@@ -17,7 +17,7 @@ class TranslatedStringHelperTest extends \PHPUnit_Framework_TestCase
         $str->set('foo', 'en');
         $str->set('fou', 'fr');
 
-        $helper = new TranslatedStringHelper(new TranslationContext('en'));
+        $helper = new TranslationHelper(new TranslationContext('en'));
 
         $this->assertEquals('foo', $helper->toString($str));
     }
@@ -27,13 +27,13 @@ class TranslatedStringHelperTest extends \PHPUnit_Framework_TestCase
         $str = new MyTranslatedString();
         $str->set('fou', 'fr');
 
-        $helper = new TranslatedStringHelper(new TranslationContext('en'));
+        $helper = new TranslationHelper(new TranslationContext('en'));
         $this->assertNull($helper->toString($str));
 
-        $helper = new TranslatedStringHelper(new TranslationContext('en', ['fr']));
+        $helper = new TranslationHelper(new TranslationContext('en', ['fr']));
         $this->assertEquals('fou', $helper->toString($str));
 
-        $helper = new TranslatedStringHelper(new TranslationContext('en', ['de', 'fr']));
+        $helper = new TranslationHelper(new TranslationContext('en', ['de', 'fr']));
         $this->assertEquals('fou', $helper->toString($str));
     }
 
@@ -41,7 +41,7 @@ class TranslatedStringHelperTest extends \PHPUnit_Framework_TestCase
     {
         $str = new MyTranslatedString();
 
-        $helper = new TranslatedStringHelper(new TranslationContext('en'));
+        $helper = new TranslationHelper(new TranslationContext('en'));
         $helper->set($str, 'foo');
 
         $this->assertEquals('foo', $str->get('en'));
@@ -52,7 +52,7 @@ class TranslatedStringHelperTest extends \PHPUnit_Framework_TestCase
     {
         $str = new MyTranslatedString();
 
-        $helper = new TranslatedStringHelper(new TranslationContext('en'));
+        $helper = new TranslationHelper(new TranslationContext('en'));
         $helper->setMany($str, [
             'en' => 'foo',
             'fr' => 'fou',
