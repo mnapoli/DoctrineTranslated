@@ -1,0 +1,16 @@
+{
+    "name": "mnapoli/doctrine-translated",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Mnapoli\\Translated\\": "src/",
+            "Test\\Mnapoli\\Translated\\": "tests/"
+        }
+    },
+    "require": {
+        "php": ">=5.4.0",
+        "doctrine/orm": "2.5.*@dev"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
