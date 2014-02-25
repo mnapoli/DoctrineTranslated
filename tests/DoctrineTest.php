@@ -21,8 +21,8 @@ class DoctrineTest extends \PHPUnit_Framework_TestCase
     {
         $paths = [__DIR__ . '/Fixture'];
         $dbParams = [
-            'driver'   => 'pdo_sqlite',
-            'memory'   => true,
+            'driver' => 'pdo_sqlite',
+            'memory' => true,
         ];
 
         // Create the entity manager
@@ -38,6 +38,7 @@ class DoctrineTest extends \PHPUnit_Framework_TestCase
     {
         $entity1 = new MyEntity();
         $entity1->getName()->set('foo', 'en');
+        $entity1->getName()->set('fou', 'fr');
 
         $this->em->persist($entity1);
         $this->em->flush();
