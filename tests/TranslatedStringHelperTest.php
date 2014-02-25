@@ -40,4 +40,30 @@ class TranslatedStringHelperTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('fou', $helper->toString($str, null, ['de', 'fr']));
         $this->assertEquals('fou', $helper->toString($str, 'en', ['de', 'fr']));
     }
+
+    public function testSet()
+    {
+        $str = new MyTranslatedString();
+
+        $helper = new TranslatedStringHelper(new TranslationContext('en'));
+        $helper->set($str, 'foo', 'en');
+        $helper->set($str, 'fou', 'fr');
+
+        $this->assertEquals('foo', $str->get('en'));
+        $this->assertEquals('fou', $str->get('fr'));
+    }
+
+    public function testSetMany()
+    {
+        $str = new MyTranslatedString();
+
+        $helper = new TranslatedStringHelper(new TranslationContext('en'));
+        $helper->setMany($str, [
+            'en' => 'foo',
+            'fr' => 'fou',
+        ]);
+
+        $this->assertEquals('foo', $str->get('en'));
+        $this->assertEquals('fou', $str->get('fr'));
+    }
 }

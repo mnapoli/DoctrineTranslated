@@ -20,7 +20,7 @@ class TranslatedStringHelper
     }
 
     /**
-     * Convert a TranslatedString to a string using the given locale.
+     * Returns the translation of a TranslatedString for a given locale.
      *
      * If no locale is given, the current locale of the context will be used.
      *
@@ -53,5 +53,36 @@ class TranslatedStringHelper
         }
 
         return null;
+    }
+
+    /**
+     * Set the translation for a given locale in a TranslatedString.
+     *
+     * If no locale is given, the current locale of the context will be used.
+     *
+     * @param TranslatedString $string
+     * @param string           $translation
+     * @param string|null      $locale If null, will use the current locale.
+     */
+    public function set(TranslatedString $string, $translation, $locale = null)
+    {
+        if ($locale === null) {
+            $locale = $this->context->getLocale();
+        }
+
+        $string->set($translation, $locale);
+    }
+
+    /**
+     * Set many translations at once in a TranslatedString.
+     *
+     * @param TranslatedString $string
+     * @param string[]         $translations Must be an array of translations, indexed by the locale.
+     */
+    public function setMany(TranslatedString $string, array $translations)
+    {
+        foreach ($translations as $locale => $translation) {
+            $string->set($translation, $locale);
+        }
     }
 }

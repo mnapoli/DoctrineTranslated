@@ -12,13 +12,13 @@ abstract class TranslatedString
     /**
      * Set the translation of the string for the given locale.
      *
-     * @param string $value
+     * @param string $translation
      * @param string $locale
      *
      * @throws \InvalidArgumentException The given locale was not defined.
      * @return string
      */
-    public function set($value, $locale)
+    public function set($translation, $locale)
     {
         $language = Util::getLanguage($locale);
 
@@ -26,7 +26,7 @@ abstract class TranslatedString
             throw new \InvalidArgumentException(sprintf('There is no locale "%s" defined', $locale));
         }
 
-        $this->{$language} = $value;
+        $this->{$language} = $translation;
     }
 
     /**
