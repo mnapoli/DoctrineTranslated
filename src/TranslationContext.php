@@ -9,14 +9,24 @@ namespace Mnapoli\Translated;
  */
 class TranslationContext
 {
+    /**
+     * @var string
+     */
     private $locale;
 
     /**
-     * @param string $locale Current locale, for example from the request, or from the logged in user.
+     * @var string[]
      */
-    public function __construct($locale)
+    private $fallback;
+
+    /**
+     * @param string   $locale   Current locale, for example from the request, or from the logged in user.
+     * @param string[] $fallback List of fallback locales.
+     */
+    public function __construct($locale, array $fallback = [])
     {
         $this->locale = $locale;
+        $this->fallback = $fallback;
     }
 
     /**
@@ -27,5 +37,13 @@ class TranslationContext
     public function getLocale()
     {
         return $this->locale;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getFallback()
+    {
+        return $this->fallback;
     }
 }

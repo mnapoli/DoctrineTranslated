@@ -20,32 +20,21 @@ class TranslatedStringHelper
     }
 
     /**
-     * Returns the translation of a TranslatedString for a given locale.
-     *
-     * If no locale is given, the current locale of the context will be used.
-     *
-     * You can provide a list of fallback locales if no translation was set for the given locale.
-     * The first translation not null that was found from the given locales will be returned.
+     * Returns the translation of a TranslatedString using the current locale and the fallback locales.
      *
      * @param TranslatedString $string
-     * @param string|null      $locale   If null, will use the current locale.
-     * @param string[]         $fallback List of locales to use as fallback.
      *
-     * @return null|string Returns the string, or null if no translation was set for this locale.
+     * @return null|string Returns the string, or null if no translation was found.
      */
-    public function toString(TranslatedString $string, $locale = null, array $fallback = [])
+    public function toString(TranslatedString $string)
     {
-        if ($locale === null) {
-            $locale = $this->context->getLocale();
-        }
-
-        $value = $string->get($locale);
+        $value = $string->get($this->context->getLocale());
 
         if ($value) {
             return $value;
         }
 
-        foreach ($fallback as $fallbackLocale) {
+        foreach ($this->context->getFallback() as $fallbackLocale) {
             $value = $string->get($fallbackLocale);
             if ($value) {
                 return $value;
@@ -56,19 +45,14 @@ class TranslatedStringHelper
     }
 
     /**
-     * Set the translation for a given locale in a TranslatedString.
-     *
-     * If no locale is given, the current locale of the context will be used.
+     * Set the translation for the current locale in a TranslatedString.
      *
      * @param TranslatedString $string
      * @param string           $translation
-     * @param string|null      $locale If null, will use the current locale.
      */
-    public function set(TranslatedString $string, $translation, $locale = null)
+    public function set(TranslatedString $string, $translation)
     {
-        if ($locale === null) {
-            $locale = $this->context->getLocale();
-        }
+        $locale = $this->context->getLocale();
 
         $string->set($translation, $locale);
     }
