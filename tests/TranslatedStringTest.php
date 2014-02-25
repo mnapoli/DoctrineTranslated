@@ -12,34 +12,10 @@ class TranslatedStringTest extends \PHPUnit_Framework_TestCase
 {
     public function testSetGet()
     {
-        $str = new MyTranslatedString(new TranslationContext('en'));
+        $str = new MyTranslatedString();
 
         $str->set('foo', 'en');
         $this->assertEquals('foo', $str->get('en'));
-    }
-
-    public function testSetGetDefaultLocale()
-    {
-        $str = new MyTranslatedString(new TranslationContext('en'));
-
-        $str->set('foo');
-        $this->assertEquals('foo', $str->get());
-    }
-
-    public function testSetGetAlternateLocale()
-    {
-        $str = new MyTranslatedString(new TranslationContext('en'));
-
-        $str->set('foo', 'fr');
-        $this->assertEquals('foo', $str->get('fr'));
-    }
-
-    public function testToString()
-    {
-        $str = new MyTranslatedString(new TranslationContext('en'));
-
-        $str->set('foo');
-        $this->assertEquals('foo', (string) $str);
     }
 
     /**

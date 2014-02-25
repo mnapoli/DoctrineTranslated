@@ -2,8 +2,6 @@
 
 namespace Test\Mnapoli\Translated\Fixture;
 
-use Mnapoli\Translated\TranslationContext;
-
 /**
  * @Entity
  */
@@ -24,7 +22,7 @@ class MyEntity
 
     public function __construct()
     {
-        $this->name = new MyTranslatedString(new TranslationContext('en'));
+        $this->name = new MyTranslatedString();
     }
 
     /**
@@ -41,14 +39,5 @@ class MyEntity
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * @param string      $name
-     * @param string|null $locale
-     */
-    public function setName($name, $locale = null)
-    {
-        $this->name->set($name, $locale);
     }
 }
