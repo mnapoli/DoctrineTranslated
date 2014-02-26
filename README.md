@@ -108,6 +108,25 @@ Twig example (not implemented yet):
 {{ product.name|translated }}
 ```
 
+
+## Translation context
+
+Everything in this library works around the `TranslationContext`.
+It is really simple: it just contains the current locale.
+
+For example, if you handle a HTTP request with a 'en_US' locale, then
+you will create a translation context with that locale.
+
+You can then use this context to create the helpers, and many things.
+
+Simple example:
+
+```php
+$manager = new TranslationManager();
+$context = $manager->createContext('en');
+```
+
+
 ## Helper
 
 You saw above a basic example of using the helper.
@@ -128,9 +147,30 @@ $helper->setMany($str, [
 ]);
 ```
 
+
 ## Fallbacks
 
-TODO
+You can define fallbacks on the `TranslationManager`:
+
+```php
+$manager = new TranslationManager();
+
+$manager->setFallbacks([
+    'fr' => ['en'],
+    'es' => ['fr', 'en'],
+]);
+```
+
+As you can see, fallbacks are optional, and can be multiple.
+
+Once fallbacks are configured, they will be embedded in the `TranslationContext`:
+
+```php
+$context = $manager->createContext('es');
+
+var_dump($context->getFallback()); // [ 'fr', 'en' ]
+```
+
 
 ## Doctrine
 
