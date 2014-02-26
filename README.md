@@ -134,4 +134,35 @@ TODO
 
 ## Doctrine
 
-TODO
+**Documentation currently being written**
+
+There are no changes regarding persisting or retrieving an entity. When you load an entity from
+database, all the translations will be loaded.
+
+However, due to the fact that `Product::name` is not a string anymore, you cannot simply filter on
+the field. You need to write queries like this:
+
+```php
+$query = $em->createQuery(sprintf(
+    "SELECT p FROM Product p WHERE p.name.%s = 'Hello'",
+    $lang
+));
+$products = $query->getResult();
+```
+
+The same goes for `ORDER BY`:
+
+```php
+$query = $em->createQuery(sprintf(
+    "SELECT p FROM Product p ORDER BY p.name.%s ASC",
+    $lang
+));
+$products = $query->getResult();
+```
+
+The `$lang` (or locale) can be obtained from the current `TranslationContext`.
+
+I am looking at ways to makes this more simple, for example with a DQL function
+(https://github.com/mnapoli/DoctrineTranslated/blob/master/src/Doctrine/TranslatedFunction.php).
+Feel free to help, currently this is stuck because Doctrine instantiate the "function" classes itself,
+which prevents using dependency injection to inject the current context (containing the current locale).
