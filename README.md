@@ -109,6 +109,33 @@ Twig example (not implemented yet):
 ```
 
 
+## Pros and cons
+
+With that method, you will end up with only one table in database:
+
+```
+mysql> SELECT * FROM Product;
++----+---------+---------+
+| id | name_en | name_fr |
++----+---------+---------+
+| 1  | Hello   | Salut   |
++----+---------+---------+
+```
+
+This makes it very good for performances, and for other reasons:
+
+- no round-trip to the database because you always get all the translations
+- no joins, this is a perfectly simple query
+- isolated translations (there isn't a single table for storing all the translations)
+- no problems with indexes (you can add the indexes you want)
+- very friendly with manually browsing/editing the database
+
+However, be aware there are cons:
+
+- if you support 100 languages, you will end up with huge tables and large objects in memory
+- if you add a new language, you need to update your database (Doctrine can do it automatically though)
+
+
 ## Translation context
 
 Everything in this library works around the `TranslationContext`.
