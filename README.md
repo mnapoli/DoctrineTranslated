@@ -71,7 +71,7 @@ class TranslatedString extends \Mnapoli\Translated\TranslatedString
 }
 ```
 
-You can then starting translating that field:
+You can then start translating that field:
 
 ```php
 $product = new Product();
