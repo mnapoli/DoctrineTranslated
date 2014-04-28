@@ -20,7 +20,7 @@ abstract class TranslatedString
      */
     public function set($translation, $locale)
     {
-        $language = Util::getLanguage($locale);
+        $language = TranslationUtils::getLanguage($locale);
 
         if (! property_exists($this, $language)) {
             throw new \InvalidArgumentException(sprintf('There is no locale "%s" defined', $locale));
@@ -39,7 +39,7 @@ abstract class TranslatedString
      */
     public function get($locale)
     {
-        $language = Util::getLanguage($locale);
+        $language = TranslationUtils::getLanguage($locale);
 
         if (! property_exists($this, $language)) {
             throw new \InvalidArgumentException(sprintf('There is no locale "%s" defined', $locale));

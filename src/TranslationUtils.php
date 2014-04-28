@@ -7,7 +7,7 @@ namespace Mnapoli\Translated;
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
  */
-class Util
+class TranslationUtils
 {
     /**
      * Returns the language of the given locale.
