@@ -210,6 +210,16 @@ $helper->setMany($str, [
 ]);
 ```
 
+To create a new translation from scratch:
+
+```php
+$str = $helper->set(new TranslatedString(), 'Hello');
+
+// Same as:
+$str = new TranslatedString();
+$str = $helper->set($str, 'Hello');
+```
+
 
 ## Fallbacks
 

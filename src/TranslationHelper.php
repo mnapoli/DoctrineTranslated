@@ -49,12 +49,16 @@ class TranslationHelper
      *
      * @param TranslatedString $string
      * @param string           $translation
+     *
+     * @return TranslatedString Returns $string
      */
     public function set(TranslatedString $string, $translation)
     {
         $locale = $this->context->getLocale();
 
         $string->set($translation, $locale);
+
+        return $string;
     }
 
     /**
@@ -62,11 +66,15 @@ class TranslationHelper
      *
      * @param TranslatedString $string
      * @param string[]         $translations Must be an array of translations, indexed by the locale.
+     *
+     * @return TranslatedString Returns $string
      */
     public function setMany(TranslatedString $string, array $translations)
     {
         foreach ($translations as $locale => $translation) {
             $string->set($translation, $locale);
         }
+
+        return $string;
     }
 }

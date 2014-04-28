@@ -42,10 +42,11 @@ class TranslationHelperTest extends \PHPUnit_Framework_TestCase
         $str = new MyTranslatedString();
 
         $helper = new TranslationHelper(new TranslationContext('en'));
-        $helper->set($str, 'foo');
+        $returned = $helper->set($str, 'foo');
 
         $this->assertEquals('foo', $str->get('en'));
         $this->assertNull($str->get('fr'));
+        $this->assertSame($str, $returned);
     }
 
     public function testSetMany()
@@ -53,12 +54,13 @@ class TranslationHelperTest extends \PHPUnit_Framework_TestCase
         $str = new MyTranslatedString();
 
         $helper = new TranslationHelper(new TranslationContext('en'));
-        $helper->setMany($str, [
+        $returned = $helper->setMany($str, [
             'en' => 'foo',
             'fr' => 'fou',
         ]);
 
         $this->assertEquals('foo', $str->get('en'));
         $this->assertEquals('fou', $str->get('fr'));
+        $this->assertSame($str, $returned);
     }
 }
