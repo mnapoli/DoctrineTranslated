@@ -1,5 +1,7 @@
 # Translated strings for Doctrine
 
+[![Build Status](https://travis-ci.org/mnapoli/DoctrineTranslated.svg?branch=master)](https://travis-ci.org/mnapoli/DoctrineTranslated) [![Coverage Status](https://coveralls.io/repos/mnapoli/DoctrineTranslated/badge.png)](https://coveralls.io/r/mnapoli/DoctrineTranslated)
+
 This library is an alternative to the Translatable extension for Doctrine.
 
 The basic idea is to shift from "something that magically manages several versions of the same entity"
