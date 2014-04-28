@@ -15,6 +15,11 @@ class TranslationManager
     private $fallbacks;
 
     /**
+     * @var TranslationContext|null
+     */
+    private $currentContext;
+
+    /**
      * Defines a list of fallback locales for each locale.
      *
      *     ->setFallbacks([
@@ -31,17 +36,28 @@ class TranslationManager
     }
 
     /**
-     * Returns a new context.
+     * Creates a new TranslationContext based on the given locale and sets it
+     * as the current context.
      *
      * @param string $locale
      *
      * @return TranslationContext
      */
-    public function createContext($locale)
+    public function setCurrentContext($locale)
     {
         $fallback = $this->getFallback($locale);
 
-        return new TranslationContext($locale, $fallback);
+        $this->currentContext = new TranslationContext($locale, $fallback);
+
+        return $this->currentContext;
+    }
+
+    /**
+     * @return TranslationContext|null
+     */
+    public function getCurrentContext()
+    {
+        return $this->currentContext;
     }
 
     /**

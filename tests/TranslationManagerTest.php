@@ -9,7 +9,7 @@ use Mnapoli\Translated\TranslationManager;
  */
 class TranslationManagerTest extends \PHPUnit_Framework_TestCase
 {
-    public function testCreateContext()
+    public function testSetCurrentContext()
     {
         $manager = new TranslationManager();
 
@@ -17,12 +17,14 @@ class TranslationManagerTest extends \PHPUnit_Framework_TestCase
             'fr' => ['en'],
         ]);
 
-        $contextEn = $manager->createContext('en');
+        $contextEn = $manager->setCurrentContext('en');
         $this->assertEquals('en', $contextEn->getLocale());
         $this->assertEquals([], $contextEn->getFallback());
+        $this->assertSame($contextEn, $manager->getCurrentContext());
 
-        $contextFr = $manager->createContext('fr');
+        $contextFr = $manager->setCurrentContext('fr');
         $this->assertEquals('fr', $contextFr->getLocale());
         $this->assertEquals(['en'], $contextFr->getFallback());
+        $this->assertSame($contextFr, $manager->getCurrentContext());
     }
 }

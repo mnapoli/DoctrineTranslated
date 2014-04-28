@@ -139,18 +139,27 @@ However, be aware there are cons:
 ## Translation context
 
 Everything in this library works around the `TranslationContext`.
-It is really simple: it just contains the current locale.
+It is really simple: **it just contains the current locale**.
 
 For example, if you handle a HTTP request with a 'en_US' locale, then
 you will create a translation context with that locale.
 
-You can then use this context to create the helpers, and many things.
+You can then use this context to create the helpers.
 
-Simple example:
+You can create a new context and set it as the current context:
 
 ```php
 $manager = new TranslationManager();
-$context = $manager->createContext('en');
+$context = $manager->setCurrentContext('en');
+```
+
+A good place to do this would be at the beginning of a HTTP request, so that the current
+context is set for the whole request (and available in controllers).
+
+Later, you can fetch the current context:
+
+```php
+$context = $manager->getCurrentContext();
 ```
 
 
