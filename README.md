@@ -47,6 +47,17 @@ class Product
 }
 ```
 
+If you use YAML instead of annotations:
+
+```yaml
+Acme\Model\Product:
+  type: entity
+
+  embedded:
+    name:
+      class: Acme\Model\TranslatedString
+```
+
 The `TranslatedString` is defined by you by extending `Mnapoli\Translated\TranslatedString`.
 That way, you can define the languages you want to support.
 This class is reusable everywhere in your application, so you only need to define it once.
@@ -69,6 +80,20 @@ class TranslatedString extends \Mnapoli\Translated\TranslatedString
      */
     protected $fr;
 }
+```
+
+Here is the same mapping in YAML:
+
+```yaml
+Acme\Model\TranslatedString:
+  type: embeddable
+  fields:
+    en:
+      type: string
+      nullable: true
+    fr:
+      type: string
+      nullable: true
 ```
 
 You can then start translating that field:
