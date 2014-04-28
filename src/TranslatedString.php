@@ -15,7 +15,7 @@ abstract class TranslatedString
      * @param string $translation
      * @param string $locale
      *
-     * @throws \InvalidArgumentException The given locale was not defined.
+     * @throws \InvalidArgumentException The given locale is unknown
      * @return string
      */
     public function set($translation, $locale)
@@ -34,7 +34,7 @@ abstract class TranslatedString
      *
      * @param string $locale
      *
-     * @throws \InvalidArgumentException The given locale was not defined.
+     * @throws \InvalidArgumentException The given locale is unknown
      * @return string
      */
     public function get($locale)

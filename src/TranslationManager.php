@@ -12,7 +12,7 @@ class TranslationManager
     /**
      * @var array
      */
-    private $fallbacks;
+    private $fallbacks = [];
 
     /**
      * @var TranslationContext|null
