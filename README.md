@@ -153,9 +153,19 @@ Current integrations:
 
         $viewHelper = new \Mnapoli\Translated\Helper\Zend1\TranslateZend1Helper($translationHelper);
 
+        // The view helper will be accessible through the name "translate"
         $view->registerHelper($viewHelper, 'translate');
     }
 ```
+
+You can then use the helper in views:
+
+```php
+echo $this->translate($aTranslatedString);
+```
+
+Watch out: the `translate` view helper already exists in ZF1. The example shown here will override it.
+You can use a name different than "translate" if you don't want to override it.
 
 
 ## Pros and cons
