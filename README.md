@@ -138,6 +138,25 @@ Twig example (not implemented yet):
 {{ product.name|translated }}
 ```
 
+Current integrations:
+
+- Zend Framework 1
+
+```php
+// In your Bootstrap
+    protected function _initViewHelpers()
+    {
+        $this->bootstrap('View');
+        $view = $this->getResource('view');
+
+        // Create or get $translationHelper (\Mnapoli\Translated\TranslationHelper)
+
+        $viewHelper = new \Mnapoli\Translated\Helper\Zend1\Translate($translationHelper);
+
+        $view->registerHelper($viewHelper, 'translate');
+    }
+```
+
 
 ## Pros and cons
 
