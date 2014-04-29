@@ -11,56 +11,56 @@ abstract class TranslatedString
 {
     /**
      * @param string|null $translation Optional. If set, then the language must be given too.
-     * @param string|null $locale
+     * @param string|null $language
      *
      * @throws \BadMethodCallException   The language must be given if $translation is given.
-     * @throws \InvalidArgumentException The given locale is unknown
+     * @throws \InvalidArgumentException The given language is unknown
      */
-    public function __construct($translation = null, $locale = null)
+    public function __construct($translation = null, $language = null)
     {
-        if ($translation !== null && $locale !== null) {
-            $this->set($translation, $locale);
+        if ($translation !== null && $language !== null) {
+            $this->set($translation, $language);
         }
 
-        if ($translation !== null && $locale === null) {
-            throw new \BadMethodCallException(sprintf('There is no locale "%s" defined', $locale));
+        if ($translation !== null && $language === null) {
+            throw new \BadMethodCallException(sprintf('There is no language "%s" defined', $language));
         }
     }
 
     /**
-     * Set the translation of the string for the given locale.
+     * Set the translation of the string for the given language.
      *
      * @param string $translation
-     * @param string $locale
+     * @param string $language
      *
-     * @throws \InvalidArgumentException The given locale is unknown
+     * @throws \InvalidArgumentException The given language is unknown
      * @return string
      */
-    public function set($translation, $locale)
+    public function set($translation, $language)
     {
-        $language = TranslationUtils::getLanguage($locale);
+        $language = TranslationUtils::getLanguage($language);
 
         if (! property_exists($this, $language)) {
-            throw new \InvalidArgumentException(sprintf('There is no locale "%s" defined', $locale));
+            throw new \InvalidArgumentException(sprintf('There is no language "%s" defined', $language));
         }
 
         $this->{$language} = $translation;
     }
 
     /**
-     * Returns the translation of the string in the given locale.
+     * Returns the translation of the string in the given language.
      *
-     * @param string $locale
+     * @param string $language
      *
-     * @throws \InvalidArgumentException The given locale is unknown
+     * @throws \InvalidArgumentException The given language is unknown
      * @return string
      */
-    public function get($locale)
+    public function get($language)
     {
-        $language = TranslationUtils::getLanguage($locale);
+        $language = TranslationUtils::getLanguage($language);
 
         if (! property_exists($this, $language)) {
-            throw new \InvalidArgumentException(sprintf('There is no locale "%s" defined', $locale));
+            throw new \InvalidArgumentException(sprintf('There is no language "%s" defined', $language));
         }
 
         return $this->{$language};

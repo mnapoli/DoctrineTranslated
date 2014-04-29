@@ -20,7 +20,7 @@ class TranslatedStringTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage There is no locale "foobar" defined
+     * @expectedExceptionMessage There is no language "foobar" defined
      */
     public function testSetUnknownLanguage()
     {
@@ -31,7 +31,7 @@ class TranslatedStringTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage There is no locale "foobar" defined
+     * @expectedExceptionMessage There is no language "foobar" defined
      */
     public function testGetUnknownLanguage()
     {
