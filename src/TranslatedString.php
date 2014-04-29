@@ -10,6 +10,24 @@ namespace Mnapoli\Translated;
 abstract class TranslatedString
 {
     /**
+     * @param string|null $translation Optional. If set, then the language must be given too.
+     * @param string|null $locale
+     *
+     * @throws \BadMethodCallException   The language must be given if $translation is given.
+     * @throws \InvalidArgumentException The given locale is unknown
+     */
+    public function __construct($translation = null, $locale = null)
+    {
+        if ($translation !== null && $locale !== null) {
+            $this->set($translation, $locale);
+        }
+
+        if ($translation !== null && $locale === null) {
+            throw new \BadMethodCallException(sprintf('There is no locale "%s" defined', $locale));
+        }
+    }
+
+    /**
      * Set the translation of the string for the given locale.
      *
      * @param string $translation

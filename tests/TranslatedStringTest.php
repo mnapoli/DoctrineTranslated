@@ -24,7 +24,7 @@ class TranslatedStringTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetUnknownLanguage()
     {
-        $str = new MyTranslatedString(new TranslationContext('en'));
+        $str = new MyTranslatedString();
 
         $str->set('foo', 'foobar');
     }
@@ -35,7 +35,7 @@ class TranslatedStringTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetUnknownLanguage()
     {
-        $str = new MyTranslatedString(new TranslationContext('en'));
+        $str = new MyTranslatedString();
 
         $str->get('foobar');
     }
