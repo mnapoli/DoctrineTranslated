@@ -151,7 +151,7 @@ Current integrations:
 
         // Create or get $translationHelper (\Mnapoli\Translated\TranslationHelper)
 
-        $viewHelper = new \Mnapoli\Translated\Helper\Zend1\Translate($translationHelper);
+        $viewHelper = new \Mnapoli\Translated\Helper\Zend1\TranslateZend1Helper($translationHelper);
 
         $view->registerHelper($viewHelper, 'translate');
     }

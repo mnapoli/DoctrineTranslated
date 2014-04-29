@@ -5,7 +5,7 @@ namespace Mnapoli\Translated\Helper\Zend1;
 use Mnapoli\Translated\TranslatedString;
 use Mnapoli\Translated\TranslationHelper;
 
-class Translate
+class TranslateZend1Helper
 {
     /**
      * @var TranslationHelper
