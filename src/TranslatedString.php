@@ -18,12 +18,14 @@ abstract class TranslatedString
      */
     public function __construct($translation = null, $language = null)
     {
-        if ($translation !== null && $language !== null) {
-            $this->set($translation, $language);
+        if ($translation !== null && $language === null) {
+            throw new \BadMethodCallException(
+                'If you provide a translation, you must provide a language'
+            );
         }
 
-        if ($translation !== null && $language === null) {
-            throw new \BadMethodCallException(sprintf('There is no language "%s" defined', $language));
+        if ($translation !== null && $language !== null) {
+            $this->set($translation, $language);
         }
     }
 
