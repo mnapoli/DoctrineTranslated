@@ -118,8 +118,11 @@ A `TranslationHelper` is provided, and integrations with Twig or other systems a
 Example:
 
 ```php
-// The translation context sets that the current locale is EN
-$helper = new TranslationHelper(new TranslationContext('en'));
+$translationManager = TranslationManager();
+// The current locale is "en"
+$translationManager->setCurrentContext('en');
+
+$helper = new TranslationHelper($translationManager);
 
 $str = new TranslatedString();
 $str->set('foo', 'en');

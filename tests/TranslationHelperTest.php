@@ -3,7 +3,7 @@
 namespace Test\Mnapoli\Translated;
 
 use Mnapoli\Translated\TranslationHelper;
-use Mnapoli\Translated\TranslationContext;
+use Mnapoli\Translated\TranslationManager;
 use Test\Mnapoli\Translated\Fixture\MyTranslatedString;
 
 /**
@@ -17,23 +17,33 @@ class TranslationHelperTest extends \PHPUnit_Framework_TestCase
         $str->set('foo', 'en');
         $str->set('fou', 'fr');
 
-        $helper = new TranslationHelper(new TranslationContext('en'));
+        $manager = new TranslationManager();
+        $manager->setCurrentContext('en');
+        $helper = new TranslationHelper($manager);
 
         $this->assertEquals('foo', $helper->toString($str));
     }
 
     public function testToStringWithFallback()
     {
+        $manager = new TranslationManager();
+        $helper = new TranslationHelper($manager);
+
         $str = new MyTranslatedString();
         $str->set('fou', 'fr');
 
-        $helper = new TranslationHelper(new TranslationContext('en'));
+        // No fallback
+        $manager->setCurrentContext('en');
         $this->assertNull($helper->toString($str));
 
-        $helper = new TranslationHelper(new TranslationContext('en', ['fr']));
+        // One fallback
+        $manager->setFallbacks(['en' => ['fr']]);
+        $manager->setCurrentContext('en');
         $this->assertEquals('fou', $helper->toString($str));
 
-        $helper = new TranslationHelper(new TranslationContext('en', ['de', 'fr']));
+        // Two fallbacks
+        $manager->setFallbacks(['en' => ['de', 'fr']]);
+        $manager->setCurrentContext('en');
         $this->assertEquals('fou', $helper->toString($str));
     }
 
@@ -41,7 +51,10 @@ class TranslationHelperTest extends \PHPUnit_Framework_TestCase
     {
         $str = new MyTranslatedString();
 
-        $helper = new TranslationHelper(new TranslationContext('en'));
+        $manager = new TranslationManager();
+        $manager->setCurrentContext('en');
+        $helper = new TranslationHelper($manager);
+
         $returned = $helper->set($str, 'foo');
 
         $this->assertEquals('foo', $str->get('en'));
@@ -53,7 +66,11 @@ class TranslationHelperTest extends \PHPUnit_Framework_TestCase
     {
         $str = new MyTranslatedString();
 
-        $helper = new TranslationHelper(new TranslationContext('en'));
+
+        $manager = new TranslationManager();
+        $manager->setCurrentContext('en');
+        $helper = new TranslationHelper($manager);
+
         $returned = $helper->setMany($str, [
             'en' => 'foo',
             'fr' => 'fou',

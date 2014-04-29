@@ -10,13 +10,13 @@ namespace Mnapoli\Translated;
 class TranslationHelper
 {
     /**
-     * @var TranslationContext
+     * @var TranslationManager
      */
-    private $context;
+    private $translationManager;
 
-    public function __construct(TranslationContext $context)
+    public function __construct(TranslationManager $translationManager)
     {
-        $this->context = $context;
+        $this->translationManager = $translationManager;
     }
 
     /**
@@ -28,13 +28,15 @@ class TranslationHelper
      */
     public function toString(TranslatedString $string)
     {
-        $value = $string->get($this->context->getLocale());
+        $context = $this->translationManager->getCurrentContext();
+
+        $value = $string->get($context->getLocale());
 
         if ($value) {
             return $value;
         }
 
-        foreach ($this->context->getFallback() as $fallbackLocale) {
+        foreach ($context->getFallback() as $fallbackLocale) {
             $value = $string->get($fallbackLocale);
             if ($value) {
                 return $value;
@@ -54,7 +56,9 @@ class TranslationHelper
      */
     public function set(TranslatedString $string, $translation)
     {
-        $locale = $this->context->getLocale();
+        $context = $this->translationManager->getCurrentContext();
+
+        $locale = $context->getLocale();
 
         $string->set($translation, $locale);
 
