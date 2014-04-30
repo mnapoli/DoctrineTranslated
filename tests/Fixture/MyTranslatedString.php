@@ -3,12 +3,15 @@
 namespace Test\Mnapoli\Translated\Fixture;
 
 use Mnapoli\Translated\TranslatedString;
+use Mnapoli\Translated\TranslatedStringTrait;
 
 /**
  * @Embeddable
  */
-class MyTranslatedString extends TranslatedString
+class MyTranslatedString implements TranslatedString
 {
+    use TranslatedStringTrait;
+
     /**
      * @Column(type = "string", nullable=true)
      */

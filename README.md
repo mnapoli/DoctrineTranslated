@@ -58,7 +58,7 @@ Acme\Model\Product:
       class: Acme\Model\TranslatedString
 ```
 
-The `TranslatedString` is defined by you by extending `Mnapoli\Translated\TranslatedString`.
+The `TranslatedString` is defined by you by implementing `Mnapoli\Translated\TranslatedString`.
 That way, you can define the languages you want to support.
 This class is reusable everywhere in your application, so you only need to define it once.
 
@@ -68,8 +68,10 @@ namespace Acme\Model;
 /**
  * @Embeddable
  */
-class TranslatedString extends \Mnapoli\Translated\TranslatedString
+class TranslatedString implements \Mnapoli\Translated\TranslatedString
 {
+    use \Mnapoli\Translated\TranslatedStringTrait;
+
     /**
      * @Column(type = "string", nullable=true)
      */
@@ -81,6 +83,8 @@ class TranslatedString extends \Mnapoli\Translated\TranslatedString
     protected $fr;
 }
 ```
+
+Don't forget to use the trait `Mnapoli\Translated\TranslatedStringTrait` in the class.
 
 Here is the same mapping in YAML:
 
