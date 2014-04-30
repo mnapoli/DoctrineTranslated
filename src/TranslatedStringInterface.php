@@ -7,7 +7,7 @@ namespace Mnapoli\Translated;
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
  */
-interface TranslatedString
+interface TranslatedStringInterface
 {
     /**
      * Set the translation of the string for the given language.

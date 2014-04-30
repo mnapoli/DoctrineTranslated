@@ -4,7 +4,7 @@ namespace Test\Mnapoli\Translated;
 
 use Mnapoli\Translated\TranslationHelper;
 use Mnapoli\Translated\TranslationManager;
-use Test\Mnapoli\Translated\Fixture\MyTranslatedString;
+use Test\Mnapoli\Translated\Fixture\TranslatedString;
 
 /**
  * @covers \Mnapoli\Translated\TranslationHelper
@@ -13,7 +13,7 @@ class TranslationHelperTest extends \PHPUnit_Framework_TestCase
 {
     public function testToString()
     {
-        $str = new MyTranslatedString();
+        $str = new TranslatedString();
         $str->set('foo', 'en');
         $str->set('fou', 'fr');
 
@@ -29,7 +29,7 @@ class TranslationHelperTest extends \PHPUnit_Framework_TestCase
         $manager = new TranslationManager();
         $helper = new TranslationHelper($manager);
 
-        $str = new MyTranslatedString();
+        $str = new TranslatedString();
         $str->set('fou', 'fr');
 
         // No fallback
@@ -49,7 +49,7 @@ class TranslationHelperTest extends \PHPUnit_Framework_TestCase
 
     public function testSet()
     {
-        $str = new MyTranslatedString();
+        $str = new TranslatedString();
 
         $manager = new TranslationManager();
         $manager->setCurrentContext('en');
@@ -64,7 +64,7 @@ class TranslationHelperTest extends \PHPUnit_Framework_TestCase
 
     public function testSetMany()
     {
-        $str = new MyTranslatedString();
+        $str = new TranslatedString();
 
 
         $manager = new TranslationManager();

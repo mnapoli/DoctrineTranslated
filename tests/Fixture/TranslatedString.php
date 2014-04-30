@@ -2,13 +2,13 @@
 
 namespace Test\Mnapoli\Translated\Fixture;
 
-use Mnapoli\Translated\TranslatedString;
+use Mnapoli\Translated\TranslatedStringInterface;
 use Mnapoli\Translated\TranslatedStringTrait;
 
 /**
  * @Embeddable
  */
-class MyTranslatedString implements TranslatedString
+class TranslatedString implements TranslatedStringInterface
 {
     use TranslatedStringTrait;
 

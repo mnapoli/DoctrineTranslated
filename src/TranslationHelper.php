@@ -22,11 +22,11 @@ class TranslationHelper
     /**
      * Returns the translation of a TranslatedString using the current locale and the fallback locales.
      *
-     * @param TranslatedString $string
+     * @param TranslatedStringInterface $string
      *
      * @return null|string Returns the string, or null if no translation was found.
      */
-    public function toString(TranslatedString $string)
+    public function toString(TranslatedStringInterface $string)
     {
         $context = $this->translationManager->getCurrentContext();
 
@@ -49,12 +49,12 @@ class TranslationHelper
     /**
      * Set the translation for the current locale in a TranslatedString.
      *
-     * @param TranslatedString $string
+     * @param TranslatedStringInterface $string
      * @param string           $translation
      *
-     * @return TranslatedString Returns $string
+     * @return TranslatedStringInterface Returns $string
      */
-    public function set(TranslatedString $string, $translation)
+    public function set(TranslatedStringInterface $string, $translation)
     {
         $context = $this->translationManager->getCurrentContext();
 
@@ -68,12 +68,12 @@ class TranslationHelper
     /**
      * Set many translations at once in a TranslatedString.
      *
-     * @param TranslatedString $string
+     * @param TranslatedStringInterface $string
      * @param string[]         $translations Must be an array of translations, indexed by the locale.
      *
-     * @return TranslatedString Returns $string
+     * @return TranslatedStringInterface Returns $string
      */
-    public function setMany(TranslatedString $string, array $translations)
+    public function setMany(TranslatedStringInterface $string, array $translations)
     {
         foreach ($translations as $locale => $translation) {
             $string->set($translation, $locale);

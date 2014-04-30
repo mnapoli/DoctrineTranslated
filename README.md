@@ -58,7 +58,7 @@ Acme\Model\Product:
       class: Acme\Model\TranslatedString
 ```
 
-The `TranslatedString` is defined by you by implementing `Mnapoli\Translated\TranslatedString`.
+The `TranslatedString` is defined by you by implementing `Mnapoli\Translated\TranslatedStringInterface`.
 That way, you can define the languages you want to support.
 This class is reusable everywhere in your application, so you only need to define it once.
 
@@ -68,7 +68,7 @@ namespace Acme\Model;
 /**
  * @Embeddable
  */
-class TranslatedString implements \Mnapoli\Translated\TranslatedString
+class TranslatedString implements \Mnapoli\Translated\TranslatedStringInterface
 {
     use \Mnapoli\Translated\TranslatedStringTrait;
 

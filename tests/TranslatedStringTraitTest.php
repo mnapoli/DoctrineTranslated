@@ -3,28 +3,28 @@
 namespace Test\Mnapoli\Translated;
 
 use Mnapoli\Translated\TranslationContext;
-use Test\Mnapoli\Translated\Fixture\MyTranslatedString;
+use Test\Mnapoli\Translated\Fixture\TranslatedString;
 
 /**
- * @covers \Mnapoli\Translated\TranslatedString
+ * @covers \Mnapoli\Translated\TranslatedStringTrait
  */
-class TranslatedStringTest extends \PHPUnit_Framework_TestCase
+class TranslatedStringTraitTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstructorNoParameters()
     {
-        $str = new MyTranslatedString();
+        $str = new TranslatedString();
         $this->assertNull($str->get('en'));
     }
 
     public function testConstructorParameters()
     {
-        $str = new MyTranslatedString('foo', 'en');
+        $str = new TranslatedString('foo', 'en');
         $this->assertEquals('foo', $str->get('en'));
     }
 
     public function testSetGet()
     {
-        $str = new MyTranslatedString();
+        $str = new TranslatedString();
 
         $str->set('foo', 'en');
         $this->assertEquals('foo', $str->get('en'));
@@ -36,7 +36,7 @@ class TranslatedStringTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructorBadParameters()
     {
-        new MyTranslatedString('foo');
+        new TranslatedString('foo');
     }
 
     /**
@@ -45,7 +45,7 @@ class TranslatedStringTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructorUnknownLanguage()
     {
-        new MyTranslatedString('foo', 'foobar');
+        new TranslatedString('foo', 'foobar');
     }
 
     /**
@@ -54,7 +54,7 @@ class TranslatedStringTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetUnknownLanguage()
     {
-        $str = new MyTranslatedString();
+        $str = new TranslatedString();
 
         $str->set('foo', 'foobar');
     }
@@ -65,7 +65,7 @@ class TranslatedStringTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetUnknownLanguage()
     {
-        $str = new MyTranslatedString();
+        $str = new TranslatedString();
 
         $str->get('foobar');
     }

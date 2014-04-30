@@ -15,14 +15,14 @@ class MyEntity
     private $id;
 
     /**
-     * @var MyTranslatedString
-     * @Embedded(class = "Test\Mnapoli\Translated\Fixture\MyTranslatedString")
+     * @var TranslatedString
+     * @Embedded(class = "Test\Mnapoli\Translated\Fixture\TranslatedString")
      */
     protected $name;
 
     public function __construct()
     {
-        $this->name = new MyTranslatedString();
+        $this->name = new TranslatedString();
     }
 
     /**
@@ -34,7 +34,7 @@ class MyEntity
     }
 
     /**
-     * @return MyTranslatedString
+     * @return TranslatedString
      */
     public function getName()
     {
