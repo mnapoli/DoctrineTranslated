@@ -32,13 +32,6 @@ interface TranslatedStringInterface
     public function get($language, array $fallbacks = []);
 
     /**
-     * Returns all the translations (even empty ones) as an array.
-     *
-     * @return array
-     */
-    public function toArray();
-
-    /**
      * Concatenate the string with other strings (translated or not).
      *
      * This method DO NOT modify the current object. It returns a new object.

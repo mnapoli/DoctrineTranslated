@@ -276,6 +276,12 @@ $result = $str1->concat(' ', $user->getName());
 echo $helper->toString($result);
 ```
 
+You can also create a string concatenation from scratch:
+
+```php
+$result = new StringConcatenation(new TranslatedString('Hello', 'en'), '!');
+```
+
 
 ## Fallbacks
 

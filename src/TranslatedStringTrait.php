@@ -71,39 +71,10 @@ trait TranslatedStringTrait
     /**
      * {@inheritdoc}
      */
-    public function toArray()
-    {
-        return get_object_vars($this);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function concat($string)
     {
-        $strings = func_get_args();
+        $refl = new \ReflectionClass('Mnapoli\Translated\StringConcatenation');
 
-        $result = new self();
-
-        foreach (get_object_vars($this) as $language => $value) {
-            foreach ($strings as $string) {
-                if (is_null($string)) {
-                    continue;
-                } elseif (is_string($string)) {
-                    $value .= $string;
-                } elseif ($string instanceof TranslatedStringInterface) {
-                    $value .= $string->get($language);
-                } else {
-                    throw new \InvalidArgumentException(sprintf(
-                        'Arguments for method "join" must be of type string or TranslatedStringInterface, %s given',
-                        is_object($string) ? get_class($string) : gettype($string)
-                    ));
-                }
-            }
-
-            $result->set($value, $language);
-        }
-
-        return $result;
+        return $refl->newInstanceArgs(array_merge([$this], func_get_args()));
     }
 }
