@@ -4,6 +4,10 @@ namespace Test\Mnapoli\Translated;
 
 use Test\Mnapoli\Translated\Fixture\TranslatedString;
 
+/**
+ * @covers \Mnapoli\Translated\TranslatedStringTrait
+ * @covers \Mnapoli\Translated\StringConcatenation
+ */
 class ConcatenationTest extends \PHPUnit_Framework_TestCase
 {
     public function testSimpleConcat()
@@ -52,5 +56,16 @@ class ConcatenationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('foo bar baz', $str3->get('en'));
         $this->assertEquals(' bar baz', $str3->get('fr'));
         $this->assertEquals('foo bar baz', $str3->get('fr', ['en']));
+    }
+
+    public function testOverrideValue()
+    {
+        $str1 = new TranslatedString('foo', 'en');
+        $str2 = $str1->concat(' bar');
+
+        $str2->set('bonjour', 'fr');
+
+        $this->assertEquals('foo bar', $str2->get('en'));
+        $this->assertEquals('bonjour', $str2->get('fr'));
     }
 }
