@@ -23,12 +23,13 @@ interface TranslatedStringInterface
     /**
      * Returns the translation of the string in the given language.
      *
-     * @param string $language
+     * @param string   $language
+     * @param string[] $fallbacks Languages to use as fallback if the translation is empty.
      *
      * @throws \InvalidArgumentException The given language is unknown
      * @return string
      */
-    public function get($language);
+    public function get($language, array $fallbacks = []);
 
     /**
      * Returns all the translations (even empty ones) as an array.

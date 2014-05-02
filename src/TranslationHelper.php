@@ -30,20 +30,7 @@ class TranslationHelper
     {
         $context = $this->translationManager->getCurrentContext();
 
-        $value = $string->get($context->getLocale());
-
-        if ($value) {
-            return $value;
-        }
-
-        foreach ($context->getFallback() as $fallbackLocale) {
-            $value = $string->get($fallbackLocale);
-            if ($value) {
-                return $value;
-            }
-        }
-
-        return null;
+        return $string->get($context->getLocale(), $context->getFallback());
     }
 
     /**

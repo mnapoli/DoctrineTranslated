@@ -46,7 +46,7 @@ trait TranslatedStringTrait
     /**
      * {@inheritdoc}
      */
-    public function get($language)
+    public function get($language, array $fallbacks = [])
     {
         $language = TranslationUtils::getLanguage($language);
 
@@ -54,7 +54,18 @@ trait TranslatedStringTrait
             throw new \InvalidArgumentException(sprintf('There is no language "%s" defined', $language));
         }
 
-        return $this->{$language};
+        $value = $this->{$language};
+
+        if ($value) {
+            return $value;
+        }
+
+        if (count($fallbacks) > 0) {
+            $fallbackLanguage = array_shift($fallbacks);
+            return $this->get($fallbackLanguage, $fallbacks);
+        }
+
+        return null;
     }
 
     /**

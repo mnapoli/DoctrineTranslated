@@ -2,7 +2,6 @@
 
 namespace Test\Mnapoli\Translated;
 
-use Mnapoli\Translated\TranslationContext;
 use Test\Mnapoli\Translated\Fixture\TranslatedString;
 
 /**
@@ -28,6 +27,24 @@ class TranslatedStringTraitTest extends \PHPUnit_Framework_TestCase
 
         $str->set('foo', 'en');
         $this->assertEquals('foo', $str->get('en'));
+    }
+
+    public function testGetWithFallback()
+    {
+        $str = new TranslatedString('fou', 'fr');
+
+        // No fallback
+        $this->assertNull($str->get('en'));
+
+        // One fallback
+        $this->assertEquals('fou', $str->get('en', ['fr']));
+
+        // Two fallbacks
+        $this->assertEquals('fou', $str->get('en', ['de', 'fr']));
+
+        // Two fallbacks, no result
+        $str = new TranslatedString();
+        $this->assertNull($str->get('en', ['de', 'fr']));
     }
 
     public function testToArray()
