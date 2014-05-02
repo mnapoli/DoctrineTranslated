@@ -30,6 +30,37 @@ class TranslatedStringTraitTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('foo', $str->get('en'));
     }
 
+    public function testToArray()
+    {
+        $str = new TranslatedString('foo', 'en');
+
+        $this->assertEquals([
+            'en' => 'foo',
+            'fr' => null,
+            'de' => null,
+        ], $str->toArray());
+    }
+
+    public function testConcat()
+    {
+        $str = new TranslatedString('foo', 'en');
+        $str->set('abc', 'de');
+
+        $result = $str->concat(
+            ' - ',
+            new TranslatedString('bar', 'en'),
+            new TranslatedString('baz', 'fr'),
+            null
+        );
+
+        $this->assertInstanceOf('Mnapoli\Translated\TranslatedStringInterface', $result);
+        $this->assertEquals([
+            'en' => 'foo - bar',
+            'fr' => ' - baz',
+            'de' => 'abc - ',
+        ], $result->toArray());
+    }
+
     /**
      * @expectedException \BadMethodCallException
      * @expectedExceptionMessage If you provide a translation, you must provide a language

@@ -257,6 +257,26 @@ $str = $helper->set($str, 'Hello');
 ```
 
 
+## Operations
+
+Sometimes you need to concatenate strings in a model, so you can't use the helper
+(and you maybe don't want to).
+
+You can do some basic operations on the translated strings:
+
+```php
+$str1 = new TranslatedString();
+$str1->set('Hello', 'en');
+$str1->set('Bonjour', 'fr');
+
+// $result is an instance of TranslatedStringInterface
+$result = $str1->concat(' ', $user->getName());
+
+// Will echo "Hello John" or "Bonjour John" according to the locale
+echo $helper->toString($result);
+```
+
+
 ## Fallbacks
 
 You can define fallbacks on the `TranslationManager`:
