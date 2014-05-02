@@ -73,8 +73,6 @@ trait TranslatedStringTrait
      */
     public function concat($string)
     {
-        $refl = new \ReflectionClass('Mnapoli\Translated\StringConcatenation');
-
-        return $refl->newInstanceArgs(array_merge([$this], func_get_args()));
+        return StringConcatenation::fromArray(array_merge([$this], func_get_args()));
     }
 }

@@ -43,6 +43,20 @@ class StringConcatenation implements TranslatedStringInterface
     }
 
     /**
+     * Creates a new object from an array. Use this method as an alternative to the constructor.
+     *
+     * @param array $strings Array containing strings or TranslatedStringInterface
+     *
+     * @return StringConcatenation
+     */
+    public static function fromArray(array $strings)
+    {
+        $refl = new \ReflectionClass(get_class());
+
+        return $refl->newInstanceArgs($strings);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function get($language, array $fallbacks = [])
