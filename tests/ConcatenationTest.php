@@ -2,6 +2,7 @@
 
 namespace Test\Mnapoli\Translated;
 
+use Mnapoli\Translated\StringConcatenation;
 use Test\Mnapoli\Translated\Fixture\TranslatedString;
 
 /**
@@ -67,5 +68,24 @@ class ConcatenationTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('foo bar', $str2->get('en'));
         $this->assertEquals('bonjour', $str2->get('fr'));
+    }
+
+    public function testFromArray()
+    {
+        $str = StringConcatenation::fromArray(['foo', 'bar']);
+
+        $this->assertEquals('foobar', $str->get('en'));
+    }
+
+    public function testImplode()
+    {
+        $str = StringConcatenation::implode(' ', []);
+        $this->assertEquals('', $str->get('en'));
+
+        $str = StringConcatenation::implode(' ', ['foo']);
+        $this->assertEquals('foo', $str->get('en'));
+
+        $str = StringConcatenation::implode(' ', ['foo', 'bar']);
+        $this->assertEquals('foo bar', $str->get('en'));
     }
 }

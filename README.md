@@ -262,7 +262,9 @@ $str = $helper->set($str, 'Hello');
 Sometimes you need to concatenate strings in a model, so you can't use the helper
 (and you maybe don't want to).
 
-You can do some basic operations on the translated strings:
+You can do some basic operations on the translated strings.
+
+### Concatenation
 
 ```php
 $str1 = new TranslatedString();
@@ -280,6 +282,26 @@ You can also create a string concatenation from scratch:
 
 ```php
 $result = new StringConcatenation(new TranslatedString('Hello', 'en'), '!');
+
+// or
+$result = StringConcatenation::fromArray([
+    new TranslatedString('Hello', 'en'),
+    '!'
+]);
+```
+
+### Implode
+
+Just like the concatenation:
+
+```php
+$result = StringConcatenation::implode(' ', [
+    new TranslatedString('foo', 'en'),
+    'bar'
+]);
+
+// "foo bar"
+echo $helper->toString($result);
 ```
 
 

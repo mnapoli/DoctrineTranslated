@@ -24,7 +24,7 @@ class StringConcatenation implements TranslatedStringInterface
      *
      * @throws \InvalidArgumentException Parameters must be a string or TranslatedStringInterface
      */
-    public function __construct($string)
+    public function __construct($string = null)
     {
         foreach (func_get_args() as $string) {
             if (! (is_null($string) || is_string($string) || $string instanceof TranslatedStringInterface)) {
@@ -54,6 +54,30 @@ class StringConcatenation implements TranslatedStringInterface
         $refl = new \ReflectionClass(get_class());
 
         return $refl->newInstanceArgs($strings);
+    }
+
+    /**
+     * Creates a new object from an array, with the same logic as implode().
+     * Use this method as an alternative to the constructor.
+     *
+     * @param string|TranslatedStringInterface $glue    String to use to join the strings that are in the array.
+     * @param array                            $strings Array containing strings or TranslatedStringInterface
+     *
+     * @return StringConcatenation
+     */
+    public static function implode($glue, array $strings)
+    {
+        $parameters = [];
+
+        foreach ($strings as $string) {
+            $parameters[] = $string;
+            $parameters[] = $glue;
+        }
+
+        // Remove the last useless glue appearance
+        array_pop($parameters);
+
+        return static::fromArray($parameters);
     }
 
     /**
