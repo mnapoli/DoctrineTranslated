@@ -283,6 +283,31 @@ $result = new StringConcatenation(new TranslatedString('Hello', 'en'), '!');
 ```
 
 
+## Untranslated strings
+
+Sometimes you should give or return a `TranslatedStringInterface` but you have a non-translated string.
+For example:
+
+```php
+public function getParentLabel() {
+    if ($this->parent === null) {
+        return '-';
+    }
+
+    return $this->parent->getLabel();
+}
+```
+
+Here there is a problem: `'-'` is a simple string, and if the calling code expects a `TranslatedStringInterface`
+then it won't work.
+
+For this, you can use the `UntranslatedString` class:
+
+```php
+return new UntranslatedString('-');
+```
+
+
 ## Fallbacks
 
 You can define fallbacks on the `TranslationManager`:
