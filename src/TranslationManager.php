@@ -20,19 +20,22 @@ class TranslationManager
     private $currentContext;
 
     /**
-     * Defines a list of fallback locales for each locale.
+     * Example of fallbacks:
      *
-     *     ->setFallbacks([
+     *     [
      *         'en' => ['de', 'fr'],
      *         'fr' => ['en'],
      *         'de' => ['en'],
-     *     ])
+     *     ]
      *
-     * @param array $fallbacks
+     * @param string $defaultLocale The default locale, to create the default context.
+     * @param array  $fallbacks
      */
-    public function setFallbacks(array $fallbacks)
+    public function __construct($defaultLocale, array $fallbacks = [])
     {
         $this->fallbacks = $fallbacks;
+
+        $this->setCurrentContext($defaultLocale);
     }
 
     /**
@@ -53,7 +56,7 @@ class TranslationManager
     }
 
     /**
-     * @return TranslationContext|null
+     * @return TranslationContext
      */
     public function getCurrentContext()
     {

@@ -17,8 +17,7 @@ class TranslationHelperTest extends \PHPUnit_Framework_TestCase
         $str->set('foo', 'en');
         $str->set('fou', 'fr');
 
-        $manager = new TranslationManager();
-        $manager->setCurrentContext('en');
+        $manager = new TranslationManager('en');
         $helper = new TranslationHelper($manager);
 
         $this->assertEquals('foo', $helper->toString($str));
@@ -26,24 +25,22 @@ class TranslationHelperTest extends \PHPUnit_Framework_TestCase
 
     public function testToStringWithFallback()
     {
-        $manager = new TranslationManager();
-        $helper = new TranslationHelper($manager);
-
         $str = new TranslatedString();
         $str->set('fou', 'fr');
 
         // No fallback
-        $manager->setCurrentContext('en');
+        $manager = new TranslationManager('en');
+        $helper = new TranslationHelper($manager);
         $this->assertNull($helper->toString($str));
 
         // One fallback
-        $manager->setFallbacks(['en' => ['fr']]);
-        $manager->setCurrentContext('en');
+        $manager = new TranslationManager('en', ['en' => ['fr']]);
+        $helper = new TranslationHelper($manager);
         $this->assertEquals('fou', $helper->toString($str));
 
         // Two fallbacks
-        $manager->setFallbacks(['en' => ['de', 'fr']]);
-        $manager->setCurrentContext('en');
+        $manager = new TranslationManager('en', ['en' => ['de', 'fr']]);
+        $helper = new TranslationHelper($manager);
         $this->assertEquals('fou', $helper->toString($str));
     }
 
@@ -51,8 +48,7 @@ class TranslationHelperTest extends \PHPUnit_Framework_TestCase
     {
         $str = new TranslatedString();
 
-        $manager = new TranslationManager();
-        $manager->setCurrentContext('en');
+        $manager = new TranslationManager('en');
         $helper = new TranslationHelper($manager);
 
         $returned = $helper->set($str, 'foo');
@@ -66,9 +62,7 @@ class TranslationHelperTest extends \PHPUnit_Framework_TestCase
     {
         $str = new TranslatedString();
 
-
-        $manager = new TranslationManager();
-        $manager->setCurrentContext('en');
+        $manager = new TranslationManager('en');
         $helper = new TranslationHelper($manager);
 
         $returned = $helper->setMany($str, [

@@ -20,7 +20,7 @@ class TranslationHelper
     }
 
     /**
-     * Returns the translation of a TranslatedString using the current locale and the fallback locales.
+     * Returns the translation of a TranslatedString using the current language and the fallback languages.
      *
      * @param TranslatedStringInterface $string
      *
@@ -28,24 +28,22 @@ class TranslationHelper
      */
     public function toString(TranslatedStringInterface $string)
     {
-        $context = $this->translationManager->getCurrentContext();
+        $context = $this->getCurrentContext();
 
         return $string->get($context->getLocale(), $context->getFallback());
     }
 
     /**
-     * Set the translation for the current locale in a TranslatedString.
+     * Set the translation for the current language in a TranslatedString.
      *
      * @param TranslatedStringInterface $string
-     * @param string           $translation
+     * @param string                    $translation
      *
      * @return TranslatedStringInterface Returns $string
      */
     public function set(TranslatedStringInterface $string, $translation)
     {
-        $context = $this->translationManager->getCurrentContext();
-
-        $locale = $context->getLocale();
+        $locale = $this->getCurrentContext()->getLocale();
 
         $string->set($translation, $locale);
 
@@ -56,16 +54,32 @@ class TranslationHelper
      * Set many translations at once in a TranslatedString.
      *
      * @param TranslatedStringInterface $string
-     * @param string[]         $translations Must be an array of translations, indexed by the locale.
+     * @param string[]                  $translations Must be an array of translations, indexed by the language.
      *
      * @return TranslatedStringInterface Returns $string
      */
     public function setMany(TranslatedStringInterface $string, array $translations)
     {
-        foreach ($translations as $locale => $translation) {
-            $string->set($translation, $locale);
+        foreach ($translations as $language => $translation) {
+            $string->set($translation, $language);
         }
 
         return $string;
+    }
+
+    /**
+     * @return TranslationManager
+     */
+    public function getTranslationManager()
+    {
+        return $this->translationManager;
+    }
+
+    /**
+     * @return TranslationContext
+     */
+    public function getCurrentContext()
+    {
+        return $this->translationManager->getCurrentContext();
     }
 }

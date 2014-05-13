@@ -122,9 +122,11 @@ A `TranslationHelper` is provided, and integrations with Twig or other systems a
 Example:
 
 ```php
-$translationManager = TranslationManager();
-// The current locale is "en"
-$translationManager->setCurrentContext('en');
+// The default locale is "en"
+$translationManager = TranslationManager('en');
+
+// If a user is logged in, we can set the locale to the user's one
+$translationManager->setCurrentContext('fr');
 
 $helper = new TranslationHelper($translationManager);
 
@@ -204,16 +206,21 @@ However, be aware there are cons:
 Everything in this library works around the `TranslationContext`.
 It is really simple: **it just contains the current locale**.
 
-For example, if you handle a HTTP request with a 'en_US' locale, then
+For example, if you handle a HTTP request with a 'fr_FR' locale, then
 you will create a translation context with that locale.
 
 You can then use this context to create the helpers.
 
-You can create a new context and set it as the current context:
+You can create a new context (with a default locale):
 
 ```php
-$manager = new TranslationManager();
-$context = $manager->setCurrentContext('en');
+$manager = new TranslationManager('en');
+```
+
+and set the current user's locale:
+
+```php
+$context = $manager->setCurrentContext('fr');
 ```
 
 A good place to do this would be at the beginning of a HTTP request, so that the current
@@ -335,11 +342,9 @@ return new UntranslatedString('-');
 You can define fallbacks on the `TranslationManager`:
 
 ```php
-$manager = new TranslationManager();
-
-$manager->setFallbacks([
-    'fr' => ['en'],
-    'es' => ['fr', 'en'],
+$manager = new TranslationManager('en', [
+    'fr' => ['en'],       // french fallbacks to english if not found
+    'es' => ['fr', 'en'], // spanish fallbacks to french, then english if not found
 ]);
 ```
 
@@ -348,7 +353,7 @@ As you can see, fallbacks are optional, and can be multiple.
 Once fallbacks are configured, they will be embedded in the `TranslationContext`:
 
 ```php
-$context = $manager->createContext('es');
+$context = $manager->setCurrentContext('es');
 
 var_dump($context->getFallback()); // [ 'fr', 'en' ]
 ```

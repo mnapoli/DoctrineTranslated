@@ -11,9 +11,7 @@ class TranslationManagerTest extends \PHPUnit_Framework_TestCase
 {
     public function testSetCurrentContext()
     {
-        $manager = new TranslationManager();
-
-        $manager->setFallbacks([
+        $manager = new TranslationManager('en', [
             'fr' => ['en'],
         ]);
 
