@@ -6,7 +6,6 @@ use Test\Mnapoli\Translated\Fixture\TranslatedString;
 
 /**
  * @covers \Mnapoli\Translated\AbstractTranslatedString
- * @covers \Mnapoli\Translated\StringConcatenation
  */
 class ConcatenationTest extends \PHPUnit_Framework_TestCase
 {
