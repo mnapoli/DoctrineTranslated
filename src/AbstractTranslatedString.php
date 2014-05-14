@@ -3,11 +3,11 @@
 namespace Mnapoli\Translated;
 
 /**
- * Translated string trait to help you implement your translated string.
+ * Translated string.
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
  */
-trait TranslatedStringTrait
+abstract class AbstractTranslatedString
 {
     /**
      * @param string|null $translation Optional. If set, then the language must be given too.
@@ -30,7 +30,13 @@ trait TranslatedStringTrait
     }
 
     /**
-     * {@inheritdoc}
+     * Set the translation of the string for the given language.
+     *
+     * @param string $translation
+     * @param string $language
+     *
+     * @throws \InvalidArgumentException The given language is unknown
+     * @return string
      */
     public function set($translation, $language)
     {
@@ -44,7 +50,13 @@ trait TranslatedStringTrait
     }
 
     /**
-     * {@inheritdoc}
+     * Returns the translation of the string in the given language.
+     *
+     * @param string   $language
+     * @param string[] $fallbacks Languages to use as fallback if the translation is empty.
+     *
+     * @throws \InvalidArgumentException The given language is unknown
+     * @return string
      */
     public function get($language, array $fallbacks = [])
     {
@@ -69,7 +81,9 @@ trait TranslatedStringTrait
     }
 
     /**
-     * {@inheritdoc}
+     * Returns all the translations as an array.
+     *
+     * @return string[] Array of translations, indexed by the languages.
      */
     public function getAll()
     {
@@ -77,7 +91,9 @@ trait TranslatedStringTrait
     }
 
     /**
-     * {@inheritdoc}
+     * Returns all the languages in which the string can be translated.
+     *
+     * @return string[]
      */
     public function getLanguages()
     {
@@ -85,7 +101,18 @@ trait TranslatedStringTrait
     }
 
     /**
-     * {@inheritdoc}
+     * Concatenate the string with other strings (translated or not).
+     *
+     * This method DO NOT modify the current object. It returns a new object.
+     *
+     * Can take many parameters, for example:
+     *
+     *     $result = $str->join(' - ', $otherString);
+     *
+     * @param string|AbstractTranslatedString $string
+     * @param string|AbstractTranslatedString ...
+     *
+     * @return AbstractTranslatedString
      */
     public function concat($string)
     {

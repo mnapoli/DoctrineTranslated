@@ -58,7 +58,7 @@ Acme\Model\Product:
       class: Acme\Model\TranslatedString
 ```
 
-The `TranslatedString` is defined by you by implementing `Mnapoli\Translated\TranslatedStringInterface`.
+The `TranslatedString` is defined by you by extending `Mnapoli\Translated\AbstractTranslatedString`.
 That way, you can define the languages you want to support.
 This class is reusable everywhere in your application, so you only need to define it once.
 
@@ -68,10 +68,8 @@ namespace Acme\Model;
 /**
  * @Embeddable
  */
-class TranslatedString implements \Mnapoli\Translated\TranslatedStringInterface
+class TranslatedString extends \Mnapoli\Translated\AbstractTranslatedString
 {
-    use \Mnapoli\Translated\TranslatedStringTrait;
-
     /**
      * @Column(type = "string", nullable=true)
      */
@@ -83,8 +81,6 @@ class TranslatedString implements \Mnapoli\Translated\TranslatedStringInterface
     protected $fr;
 }
 ```
-
-Don't forget to use the trait `Mnapoli\Translated\TranslatedStringTrait` in the class.
 
 Here is the same mapping in YAML:
 
@@ -211,7 +207,7 @@ you will create a translation context with that locale.
 
 You can then use this context to create the helpers.
 
-You can create a new context (with a default locale):
+You can create a new manager (with a default locale):
 
 ```php
 $manager = new TranslationManager('en');
@@ -278,7 +274,7 @@ $str1 = new TranslatedString();
 $str1->set('Hello', 'en');
 $str1->set('Bonjour', 'fr');
 
-// $result is an instance of TranslatedStringInterface
+// $result is a TranslatedString
 $result = $str1->concat(' ', $user->getName());
 
 // Will echo "Hello John" or "Bonjour John" according to the locale
@@ -288,10 +284,7 @@ echo $helper->toString($result);
 You can also create a string concatenation from scratch:
 
 ```php
-$result = new StringConcatenation(new TranslatedString('Hello', 'en'), '!');
-
-// or
-$result = StringConcatenation::fromArray([
+$result = TranslatedString::join([
     new TranslatedString('Hello', 'en'),
     '!'
 ]);
@@ -302,19 +295,19 @@ $result = StringConcatenation::fromArray([
 Just like the concatenation:
 
 ```php
-$result = StringConcatenation::implode(' ', [
+$result = TranslatedString::implode(', ', [
     new TranslatedString('foo', 'en'),
     'bar'
 ]);
 
-// "foo bar"
+// "foo, bar"
 echo $helper->toString($result);
 ```
 
 
 ## Untranslated strings
 
-Sometimes you should give or return a `TranslatedStringInterface` but you have a non-translated string.
+Sometimes you should give or return a `TranslatedString` but you have a non-translated string.
 For example:
 
 ```php
@@ -327,14 +320,16 @@ public function getParentLabel() {
 }
 ```
 
-Here there is a problem: `'-'` is a simple string, and if the calling code expects a `TranslatedStringInterface`
+Here there is a problem: `'-'` is a simple string, and if the calling code expects a `TranslatedString`
 then it won't work.
 
-For this, you can use the `UntranslatedString` class:
+For this, you can simply create an "untranslated" string:
 
 ```php
-return new UntranslatedString('-');
+return TranslatedString::untranslated('-');
 ```
+
+It will have the same value (or translation) for every language.
 
 
 ## Fallbacks

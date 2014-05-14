@@ -2,7 +2,7 @@
 
 namespace Mnapoli\Translated\Helper\Zend1;
 
-use Mnapoli\Translated\TranslatedStringInterface;
+use Mnapoli\Translated\AbstractTranslatedString;
 use Mnapoli\Translated\TranslationHelper;
 
 class TranslateZend1Helper
@@ -19,10 +19,10 @@ class TranslateZend1Helper
 
     /**
      * Translates a string into the current locale.
-     * @param TranslatedStringInterface $string
+     * @param AbstractTranslatedString $string
      * @return string
      */
-    public function translate(TranslatedStringInterface $string)
+    public function translate(AbstractTranslatedString $string)
     {
         return $this->translationHelper->toString($string);
     }

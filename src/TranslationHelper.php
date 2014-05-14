@@ -22,11 +22,11 @@ class TranslationHelper
     /**
      * Returns the translation of a TranslatedString using the current language and the fallback languages.
      *
-     * @param TranslatedStringInterface $string
+     * @param AbstractTranslatedString $string
      *
      * @return null|string Returns the string, or null if no translation was found.
      */
-    public function toString(TranslatedStringInterface $string)
+    public function toString(AbstractTranslatedString $string)
     {
         $context = $this->getCurrentContext();
 
@@ -36,12 +36,12 @@ class TranslationHelper
     /**
      * Set the translation for the current language in a TranslatedString.
      *
-     * @param TranslatedStringInterface $string
+     * @param AbstractTranslatedString $string
      * @param string                    $translation
      *
-     * @return TranslatedStringInterface Returns $string
+     * @return AbstractTranslatedString Returns $string
      */
-    public function set(TranslatedStringInterface $string, $translation)
+    public function set(AbstractTranslatedString $string, $translation)
     {
         $locale = $this->getCurrentContext()->getLocale();
 
@@ -53,12 +53,12 @@ class TranslationHelper
     /**
      * Set many translations at once in a TranslatedString.
      *
-     * @param TranslatedStringInterface $string
+     * @param AbstractTranslatedString $string
      * @param string[]                  $translations Must be an array of translations, indexed by the language.
      *
-     * @return TranslatedStringInterface Returns $string
+     * @return AbstractTranslatedString Returns $string
      */
-    public function setMany(TranslatedStringInterface $string, array $translations)
+    public function setMany(AbstractTranslatedString $string, array $translations)
     {
         foreach ($translations as $language => $translation) {
             $string->set($translation, $language);

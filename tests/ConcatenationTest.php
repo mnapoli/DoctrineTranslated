@@ -2,11 +2,10 @@
 
 namespace Test\Mnapoli\Translated;
 
-use Mnapoli\Translated\StringConcatenation;
 use Test\Mnapoli\Translated\Fixture\TranslatedString;
 
 /**
- * @covers \Mnapoli\Translated\TranslatedStringTrait
+ * @covers \Mnapoli\Translated\AbstractTranslatedString
  * @covers \Mnapoli\Translated\StringConcatenation
  */
 class ConcatenationTest extends \PHPUnit_Framework_TestCase
@@ -23,14 +22,10 @@ class ConcatenationTest extends \PHPUnit_Framework_TestCase
             null
         );
 
-        $this->assertInstanceOf('Mnapoli\Translated\TranslatedStringInterface', $result);
+        $this->assertInstanceOf('Mnapoli\Translated\AbstractTranslatedString', $result);
         $this->assertEquals('foo - bar', $result->get('en'));
         $this->assertEquals(' - baz', $result->get('fr'));
-        $this->assertEquals('foo - barbaz', $result->get('fr', ['en']));
-        $this->assertEquals('abc - baz', $result->get('fr', ['de']));
         $this->assertEquals('abc - ', $result->get('de'));
-        $this->assertEquals('abc - bar', $result->get('de', ['en']));
-        $this->assertEquals('abc - baz', $result->get('de', ['fr']));
     }
 
     /**
@@ -56,7 +51,6 @@ class ConcatenationTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('foo bar baz', $str3->get('en'));
         $this->assertEquals(' bar baz', $str3->get('fr'));
-        $this->assertEquals('foo bar baz', $str3->get('fr', ['en']));
     }
 
     public function testOverrideValue()
@@ -70,22 +64,22 @@ class ConcatenationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('bonjour', $str2->get('fr'));
     }
 
-    public function testFromArray()
+    public function testJoin()
     {
-        $str = StringConcatenation::fromArray(['foo', 'bar']);
+        $str = TranslatedString::join(['foo', 'bar']);
 
         $this->assertEquals('foobar', $str->get('en'));
     }
 
     public function testImplode()
     {
-        $str = StringConcatenation::implode(' ', []);
+        $str = TranslatedString::implode(' ', []);
         $this->assertEquals('', $str->get('en'));
 
-        $str = StringConcatenation::implode(' ', ['foo']);
+        $str = TranslatedString::implode(' ', ['foo']);
         $this->assertEquals('foo', $str->get('en'));
 
-        $str = StringConcatenation::implode(' ', ['foo', 'bar']);
+        $str = TranslatedString::implode(' ', ['foo', 'bar']);
         $this->assertEquals('foo bar', $str->get('en'));
     }
 }
