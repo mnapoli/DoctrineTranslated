@@ -5,7 +5,7 @@ namespace Test\Mnapoli\Translated;
 use Test\Mnapoli\Translated\Fixture\TranslatedString;
 
 /**
- * @covers \Mnapoli\Translated\UntranslatedString
+ * @covers \Mnapoli\Translated\AbstractTranslatedString
  */
 class UntranslatedStringTest extends \PHPUnit_Framework_TestCase
 {

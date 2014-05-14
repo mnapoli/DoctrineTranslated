@@ -7,7 +7,7 @@ use Test\Mnapoli\Translated\Fixture\TranslatedString;
 /**
  * @covers \Mnapoli\Translated\AbstractTranslatedString
  */
-class TranslatedStringTraitTest extends \PHPUnit_Framework_TestCase
+class TranslatedStringTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstructorNoParameters()
     {
