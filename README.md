@@ -107,8 +107,6 @@ $product->getName()->set('Un peu de français là', 'fr');
 echo $product->getName()->get('en');
 ```
 
-It looks clumsy right? Well there's more of course.
-
 Usually in your application, you will not want to hardcode "en" or "fr" when reading or setting the value.
 This is because the current locale varies from request to request.
 
@@ -134,7 +132,7 @@ echo $translator->get($str); // foo
 Twig example (not implemented yet):
 
 ```twig
-{{ product.name|translated }}
+{{ product.name|translate }}
 ```
 
 Current integrations:
