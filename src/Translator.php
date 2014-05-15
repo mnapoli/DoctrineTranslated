@@ -15,56 +15,45 @@ class Translator
     private $fallbacks = [];
 
     /**
-     * @var TranslationContext|null
+     * @var string
      */
-    private $currentContext;
+    private $currentLocale;
 
     /**
      * Example of fallbacks:
      *
      *     [
-     *         'en' => ['de', 'fr'],
      *         'fr' => ['en'],
-     *         'de' => ['en'],
+     *         'de' => ['en', 'fr'], // multiple fallbacks are possible
      *     ]
      *
-     * @param string $defaultLocale The default locale, to create the default context.
+     * @param string $currentLocale The current locale (or provide a default locale if none available).
      * @param array  $fallbacks
      */
-    public function __construct($defaultLocale, array $fallbacks = [])
+    public function __construct($currentLocale, array $fallbacks = [])
     {
         $this->fallbacks = $fallbacks;
-
-        $this->setCurrentContext($defaultLocale);
+        $this->currentLocale = $currentLocale;
     }
 
     /**
-     * Creates a new TranslationContext based on the given locale and sets it
-     * as the current context.
-     *
      * @param string $locale
-     *
-     * @return TranslationContext
      */
-    public function setCurrentContext($locale)
+    public function setCurrentLocale($locale)
     {
-        $fallback = $this->getFallback($locale);
-
-        $this->currentContext = new TranslationContext($locale, $fallback);
-
-        return $this->currentContext;
+        $this->currentLocale = $locale;
     }
 
     /**
-     * @return TranslationContext
+     * @return string
      */
-    public function getCurrentContext()
+    public function getCurrentLocale()
     {
-        return $this->currentContext;
+        return $this->currentLocale;
     }
 
     /**
-     * Returns the translation of a TranslatedString using the current language and the fallback languages.
+     * Returns the translation of a TranslatedString in the current locale, using the configured fallbacks.
      *
      * @param AbstractTranslatedString $string
      *
@@ -72,13 +61,11 @@ class Translator
      */
     public function get(AbstractTranslatedString $string)
     {
-        $context = $this->currentContext;
-
-        return $string->get($context->getLocale(), $context->getFallback());
+        return $string->get($this->currentLocale, $this->getFallbacks($this->currentLocale));
     }
 
     /**
-     * Set the translation for the current language in a TranslatedString.
+     * Set the translation for the current locale in a TranslatedString.
      *
      * @param AbstractTranslatedString $string
      * @param string                   $translation
@@ -87,9 +74,7 @@ class Translator
      */
     public function set(AbstractTranslatedString $string, $translation)
     {
-        $locale = $this->currentContext->getLocale();
-
-        $string->set($translation, $locale);
+        $string->set($translation, $this->currentLocale);
 
         return $string;
     }
@@ -118,7 +103,7 @@ class Translator
      *
      * @return string[]
      */
-    protected function getFallback($locale)
+    public function getFallbacks($locale)
     {
         if (! array_key_exists($locale, $this->fallbacks)) {
             return [];

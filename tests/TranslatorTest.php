@@ -10,21 +10,26 @@ use Test\Mnapoli\Translated\Fixture\TranslatedString;
  */
 class TranslatorTest extends \PHPUnit_Framework_TestCase
 {
-    public function testSetCurrentContext()
+    public function testSetCurrentLocale()
     {
-        $manager = new Translator('en', [
+        $translator = new Translator('en', [
             'fr' => ['en'],
         ]);
 
-        $contextEn = $manager->setCurrentContext('en');
-        $this->assertEquals('en', $contextEn->getLocale());
-        $this->assertEquals([], $contextEn->getFallback());
-        $this->assertSame($contextEn, $manager->getCurrentContext());
+        $this->assertEquals('en', $translator->getCurrentLocale());
 
-        $contextFr = $manager->setCurrentContext('fr');
-        $this->assertEquals('fr', $contextFr->getLocale());
-        $this->assertEquals(['en'], $contextFr->getFallback());
-        $this->assertSame($contextFr, $manager->getCurrentContext());
+        $translator->setCurrentLocale('fr');
+        $this->assertEquals('fr', $translator->getCurrentLocale());
+    }
+
+    public function testGetFallbacks()
+    {
+        $translator = new Translator('en', [
+            'fr' => ['en'],
+        ]);
+
+        $this->assertEquals([], $translator->getFallbacks('en'));
+        $this->assertEquals(['en'], $translator->getFallbacks('fr'));
     }
 
     public function testGet()

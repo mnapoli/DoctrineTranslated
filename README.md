@@ -121,7 +121,7 @@ Example:
 $translator = Translator('en');
 
 // If a user is logged in, we can set the locale to the user's one
-$translator->setCurrentContext('fr');
+$translator->setCurrentLocale('fr');
 
 $str = new TranslatedString();
 $str->set('foo', 'en');
@@ -344,4 +344,6 @@ The `$lang` (current locale) can be obtained from the `Translator`.
 I am looking at ways to makes this more simple, for example with a DQL function
 (https://github.com/mnapoli/DoctrineTranslated/blob/master/src/Doctrine/TranslatedFunction.php).
 Feel free to help, currently this is stuck because Doctrine instantiate the "function" classes itself,
-which prevents using dependency injection to inject the current context (containing the current locale).
+which prevents using dependency injection to inject the current locale (or translator).
+
+Current issue opened at Doctrine: [#991](https://github.com/doctrine/doctrine2/pull/991).

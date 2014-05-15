@@ -44,6 +44,7 @@ class TranslatedFunction extends FunctionNode
         $this->field->type = PathExpression::TYPE_STATE_FIELD;
 
         // TODO how to pass the locale up to here?
+        // https://github.com/doctrine/doctrine2/pull/991
         $this->field->field .= '.en';
     }
 
