@@ -16,10 +16,13 @@ class TranslatorTest extends \PHPUnit_Framework_TestCase
             'fr' => ['en'],
         ]);
 
-        $this->assertEquals('en', $translator->getCurrentLocale());
+        $this->assertEquals('en', $translator->getLanguage());
 
-        $translator->setCurrentLocale('fr');
-        $this->assertEquals('fr', $translator->getCurrentLocale());
+        $translator->setLanguage('fr');
+        $this->assertEquals('fr', $translator->getLanguage());
+
+        $translator->setLanguage('en_US');
+        $this->assertEquals('en', $translator->getLanguage());
     }
 
     public function testGetFallbacks()

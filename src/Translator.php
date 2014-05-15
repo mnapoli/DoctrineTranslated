@@ -3,7 +3,7 @@
 namespace Mnapoli\Translated;
 
 /**
- * Manages everything related to the translations.
+ * Handles and translates TranslatedString objects.
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
  */
@@ -17,7 +17,7 @@ class Translator
     /**
      * @var string
      */
-    private $currentLocale;
+    private $currentLanguage;
 
     /**
      * Example of fallbacks:
@@ -27,29 +27,35 @@ class Translator
      *         'de' => ['en', 'fr'], // multiple fallbacks are possible
      *     ]
      *
-     * @param string $currentLocale The current locale (or provide a default locale if none available).
+     * @param string $locale The current locale/language (or provide a default locale if none available).
      * @param array  $fallbacks
      */
-    public function __construct($currentLocale, array $fallbacks = [])
+    public function __construct($locale, array $fallbacks = [])
     {
         $this->fallbacks = $fallbacks;
-        $this->currentLocale = $currentLocale;
+        $this->setLanguage($locale);
     }
 
     /**
-     * @param string $locale
+     * Sets the current language.
+     *
+     * @param string $locale Language or locale ('en' or 'en_US' for example)
      */
-    public function setCurrentLocale($locale)
+    public function setLanguage($locale)
     {
-        $this->currentLocale = $locale;
+        $this->currentLanguage = TranslationUtils::getLanguage($locale);
     }
 
     /**
+     * Returns the current language.
+     *
+     * Will not return a locale (e.g. 'en_US'), will return a language (e.g. 'en').
+     *
      * @return string
      */
-    public function getCurrentLocale()
+    public function getLanguage()
     {
-        return $this->currentLocale;
+        return $this->currentLanguage;
     }
 
     /**
@@ -61,7 +67,7 @@ class Translator
      */
     public function get(AbstractTranslatedString $string)
     {
-        return $string->get($this->currentLocale, $this->getFallbacks($this->currentLocale));
+        return $string->get($this->currentLanguage, $this->getFallbacks($this->currentLanguage));
     }
 
     /**
@@ -74,7 +80,7 @@ class Translator
      */
     public function set(AbstractTranslatedString $string, $translation)
     {
-        $string->set($translation, $this->currentLocale);
+        $string->set($translation, $this->currentLanguage);
 
         return $string;
     }
@@ -97,18 +103,18 @@ class Translator
     }
 
     /**
-     * Returns a list of fallback locales configured for the given locale.
+     * Returns a list of fallback languages configured for the given language.
      *
-     * @param string $locale
+     * @param string $language
      *
      * @return string[]
      */
-    public function getFallbacks($locale)
+    public function getFallbacks($language)
     {
-        if (! array_key_exists($locale, $this->fallbacks)) {
+        if (! array_key_exists($language, $this->fallbacks)) {
             return [];
         }
 
-        return (array) $this->fallbacks[$locale];
+        return (array) $this->fallbacks[$language];
     }
 }

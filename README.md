@@ -115,11 +115,11 @@ That is why this library provides helpers to make it much easier, along with the
 Example:
 
 ```php
-// The default locale is "en"
+// The default locale is "en" (you can provide a locale like "en_US" too, it will be parsed)
 $translator = Translator('en');
 
 // If a user is logged in, we can set the locale to the user's one
-$translator->setCurrentLocale('fr');
+$translator->setLanguage('fr');
 
 $str = new TranslatedString();
 $str->set('foo', 'en');
