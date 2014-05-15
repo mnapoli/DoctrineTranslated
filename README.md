@@ -140,6 +140,8 @@ Current integrations:
 - Zend Framework 1
 
 ```php
+use Mnapoli\Translated\Helper\Zend1\TranslateZend1Helper;
+
 // In your Bootstrap
     protected function _initViewHelpers()
     {
@@ -148,17 +150,15 @@ Current integrations:
 
         // Create or get $translator (\Mnapoli\Translated\Translator)
 
-        $viewHelper = new \Mnapoli\Translated\Helper\Zend1\TranslateZend1Helper($translator);
-
         // The view helper will be accessible through the name "translate"
-        $view->registerHelper($viewHelper, 'translate');
+        $view->registerHelper(new TranslateZend1Helper($translator), 'translate');
     }
 ```
 
 You can then use the helper in views:
 
 ```php
-echo $this->translate($aTranslatedString);
+echo $this->translate($someTranslatedString);
 ```
 
 Watch out: the `translate` view helper already exists in ZF1. The example shown here will override it.
