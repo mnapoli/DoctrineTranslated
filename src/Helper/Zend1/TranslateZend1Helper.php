@@ -24,6 +24,6 @@ class TranslateZend1Helper
      */
     public function translate(AbstractTranslatedString $string)
     {
-        return $this->translationHelper->toString($string);
+        return $this->translationHelper->get($string);
     }
 }

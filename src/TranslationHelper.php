@@ -26,7 +26,7 @@ class TranslationHelper
      *
      * @return null|string Returns the string, or null if no translation was found.
      */
-    public function toString(AbstractTranslatedString $string)
+    public function get(AbstractTranslatedString $string)
     {
         $context = $this->getCurrentContext();
 

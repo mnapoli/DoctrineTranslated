@@ -131,7 +131,7 @@ $str->set('foo', 'en');
 $str->set('bar', 'fr');
 
 // No need to manipulate the locale here
-echo $helper->toString($str); // foo
+echo $helper->get($str); // foo
 ```
 
 Twig example (not implemented yet):
@@ -237,7 +237,7 @@ Here is all you can do with it:
 
 ```php
 // Get the translation for the current locale
-echo $helper->toString($str);
+echo $helper->get($str);
 
 // Set the translation for the current locale
 $helper->set($str, 'Hello');
@@ -278,7 +278,7 @@ $str1->set('Bonjour', 'fr');
 $result = $str1->concat(' ', $user->getName());
 
 // Will echo "Hello John" or "Bonjour John" according to the locale
-echo $helper->toString($result);
+echo $helper->get($result);
 ```
 
 You can also create a string concatenation from scratch:
@@ -301,7 +301,7 @@ $result = TranslatedString::implode(', ', [
 ]);
 
 // "foo, bar"
-echo $helper->toString($result);
+echo $helper->get($result);
 ```
 
 

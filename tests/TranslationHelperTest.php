@@ -20,7 +20,7 @@ class TranslationHelperTest extends \PHPUnit_Framework_TestCase
         $manager = new TranslationManager('en');
         $helper = new TranslationHelper($manager);
 
-        $this->assertEquals('foo', $helper->toString($str));
+        $this->assertEquals('foo', $helper->get($str));
     }
 
     public function testToStringWithFallback()
@@ -31,17 +31,17 @@ class TranslationHelperTest extends \PHPUnit_Framework_TestCase
         // No fallback
         $manager = new TranslationManager('en');
         $helper = new TranslationHelper($manager);
-        $this->assertNull($helper->toString($str));
+        $this->assertNull($helper->get($str));
 
         // One fallback
         $manager = new TranslationManager('en', ['en' => ['fr']]);
         $helper = new TranslationHelper($manager);
-        $this->assertEquals('fou', $helper->toString($str));
+        $this->assertEquals('fou', $helper->get($str));
 
         // Two fallbacks
         $manager = new TranslationManager('en', ['en' => ['de', 'fr']]);
         $helper = new TranslationHelper($manager);
-        $this->assertEquals('fou', $helper->toString($str));
+        $this->assertEquals('fou', $helper->get($str));
     }
 
     public function testSet()
