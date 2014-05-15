@@ -3,27 +3,29 @@
 namespace Mnapoli\Translated\Helper\Zend1;
 
 use Mnapoli\Translated\AbstractTranslatedString;
-use Mnapoli\Translated\TranslationHelper;
+use Mnapoli\Translated\Translator;
 
 class TranslateZend1Helper
 {
     /**
-     * @var TranslationHelper
+     * @var Translator
      */
-    private $translationHelper;
+    private $translator;
 
-    public function __construct(TranslationHelper $translationHelper)
+    public function __construct(Translator $translator)
     {
-        $this->translationHelper = $translationHelper;
+        $this->translator = $translator;
     }
 
     /**
      * Translates a string into the current locale.
+     *
      * @param AbstractTranslatedString $string
+     *
      * @return string
      */
     public function translate(AbstractTranslatedString $string)
     {
-        return $this->translationHelper->get($string);
+        return $this->translator->get($string);
     }
 }
