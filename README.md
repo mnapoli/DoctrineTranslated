@@ -112,26 +112,23 @@ It looks clumsy right? Well there's more of course.
 Usually in your application, you will not want to hardcode "en" or "fr" when reading or setting the value.
 This is because the current locale varies from request to request.
 
-That is why this library aims to provide helpers to make it much easier.
-A `TranslationHelper` is provided, and integrations with Twig or other systems are planned.
+That is why this library provides helpers to make it much easier, along with the `Translator` object.
 
 Example:
 
 ```php
 // The default locale is "en"
-$translationManager = Translator('en');
+$translator = Translator('en');
 
 // If a user is logged in, we can set the locale to the user's one
-$translationManager->setCurrentContext('fr');
-
-$helper = new TranslationHelper($translationManager);
+$translator->setCurrentContext('fr');
 
 $str = new TranslatedString();
 $str->set('foo', 'en');
 $str->set('bar', 'fr');
 
 // No need to manipulate the locale here
-echo $helper->get($str); // foo
+echo $translator->get($str); // foo
 ```
 
 Twig example (not implemented yet):
@@ -151,9 +148,9 @@ Current integrations:
         $this->bootstrap('View');
         $view = $this->getResource('view');
 
-        // Create or get $translationHelper (\Mnapoli\Translated\TranslationHelper)
+        // Create or get $translator (\Mnapoli\Translated\Translator)
 
-        $viewHelper = new \Mnapoli\Translated\Helper\Zend1\TranslateZend1Helper($translationHelper);
+        $viewHelper = new \Mnapoli\Translated\Helper\Zend1\TranslateZend1Helper($translator);
 
         // The view helper will be accessible through the name "translate"
         $view->registerHelper($viewHelper, 'translate');
@@ -197,53 +194,21 @@ However, be aware there are cons:
 - if you add a new language, you need to update your database (Doctrine can do it automatically though)
 
 
-## Translation context
+## Translator
 
-Everything in this library works around the `TranslationContext`.
-It is really simple: **it just contains the current locale**.
-
-For example, if you handle a HTTP request with a 'fr_FR' locale, then
-you will create a translation context with that locale.
-
-You can then use this context to create the helpers.
-
-You can create a new manager (with a default locale):
-
-```php
-$manager = new Translator('en');
-```
-
-and set the current user's locale:
-
-```php
-$context = $manager->setCurrentContext('fr');
-```
-
-A good place to do this would be at the beginning of a HTTP request, so that the current
-context is set for the whole request (and available in controllers).
-
-Later, you can fetch the current context:
-
-```php
-$context = $manager->getCurrentContext();
-```
-
-
-## Helper
-
-You saw above a basic example of using the helper.
+You saw above a basic example of using the translator.
 
 Here is all you can do with it:
 
 ```php
 // Get the translation for the current locale
-echo $helper->get($str);
+echo $translator->get($str);
 
 // Set the translation for the current locale
-$helper->set($str, 'Hello');
+$translator->set($str, 'Hello');
 
 // Set the translation for several locales
-$helper->setMany($str, [
+$translator->setMany($str, [
     'en' => 'Hello',
     'fr' => 'Salut',
 ]);
@@ -252,11 +217,11 @@ $helper->setMany($str, [
 To create a new translation from scratch:
 
 ```php
-$str = $helper->set(new TranslatedString(), 'Hello');
+$str = $translator->set(new TranslatedString(), 'Hello');
 
 // Same as:
 $str = new TranslatedString();
-$str = $helper->set($str, 'Hello');
+$str = $translator->set($str, 'Hello');
 ```
 
 
@@ -337,21 +302,13 @@ It will have the same value (or translation) for every language.
 You can define fallbacks on the `Translator`:
 
 ```php
-$manager = new Translator('en', [
+$translator = new Translator('en', [
     'fr' => ['en'],       // french fallbacks to english if not found
     'es' => ['fr', 'en'], // spanish fallbacks to french, then english if not found
 ]);
 ```
 
 As you can see, fallbacks are optional, and can be multiple.
-
-Once fallbacks are configured, they will be embedded in the `TranslationContext`:
-
-```php
-$context = $manager->setCurrentContext('es');
-
-var_dump($context->getFallback()); // [ 'fr', 'en' ]
-```
 
 
 ## Doctrine
@@ -382,7 +339,7 @@ $query = $em->createQuery(sprintf(
 $products = $query->getResult();
 ```
 
-The `$lang` (or locale) can be obtained from the current `TranslationContext`.
+The `$lang` (current locale) can be obtained from the `Translator`.
 
 I am looking at ways to makes this more simple, for example with a DQL function
 (https://github.com/mnapoli/DoctrineTranslated/blob/master/src/Doctrine/TranslatedFunction.php).

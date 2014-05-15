@@ -64,6 +64,54 @@ class Translator
     }
 
     /**
+     * Returns the translation of a TranslatedString using the current language and the fallback languages.
+     *
+     * @param AbstractTranslatedString $string
+     *
+     * @return null|string Returns the string, or null if no translation was found.
+     */
+    public function get(AbstractTranslatedString $string)
+    {
+        $context = $this->currentContext;
+
+        return $string->get($context->getLocale(), $context->getFallback());
+    }
+
+    /**
+     * Set the translation for the current language in a TranslatedString.
+     *
+     * @param AbstractTranslatedString $string
+     * @param string                   $translation
+     *
+     * @return AbstractTranslatedString Returns $string
+     */
+    public function set(AbstractTranslatedString $string, $translation)
+    {
+        $locale = $this->currentContext->getLocale();
+
+        $string->set($translation, $locale);
+
+        return $string;
+    }
+
+    /**
+     * Set many translations at once in a TranslatedString.
+     *
+     * @param AbstractTranslatedString $string
+     * @param string[]                 $translations Must be an array of translations, indexed by the language.
+     *
+     * @return AbstractTranslatedString Returns $string
+     */
+    public function setMany(AbstractTranslatedString $string, array $translations)
+    {
+        foreach ($translations as $language => $translation) {
+            $string->set($translation, $language);
+        }
+
+        return $string;
+    }
+
+    /**
      * Returns a list of fallback locales configured for the given locale.
      *
      * @param string $locale
