@@ -7,7 +7,7 @@ namespace Mnapoli\Translated;
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
  */
-class TranslationManager
+class Translator
 {
     /**
      * @var array

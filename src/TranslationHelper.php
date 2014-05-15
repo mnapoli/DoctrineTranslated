@@ -10,11 +10,11 @@ namespace Mnapoli\Translated;
 class TranslationHelper
 {
     /**
-     * @var TranslationManager
+     * @var Translator
      */
     private $translationManager;
 
-    public function __construct(TranslationManager $translationManager)
+    public function __construct(Translator $translationManager)
     {
         $this->translationManager = $translationManager;
     }
@@ -37,7 +37,7 @@ class TranslationHelper
      * Set the translation for the current language in a TranslatedString.
      *
      * @param AbstractTranslatedString $string
-     * @param string                    $translation
+     * @param string                   $translation
      *
      * @return AbstractTranslatedString Returns $string
      */
@@ -54,7 +54,7 @@ class TranslationHelper
      * Set many translations at once in a TranslatedString.
      *
      * @param AbstractTranslatedString $string
-     * @param string[]                  $translations Must be an array of translations, indexed by the language.
+     * @param string[]                 $translations Must be an array of translations, indexed by the language.
      *
      * @return AbstractTranslatedString Returns $string
      */
@@ -68,7 +68,7 @@ class TranslationHelper
     }
 
     /**
-     * @return TranslationManager
+     * @return Translator
      */
     public function getTranslationManager()
     {

@@ -119,7 +119,7 @@ Example:
 
 ```php
 // The default locale is "en"
-$translationManager = TranslationManager('en');
+$translationManager = Translator('en');
 
 // If a user is logged in, we can set the locale to the user's one
 $translationManager->setCurrentContext('fr');
@@ -210,7 +210,7 @@ You can then use this context to create the helpers.
 You can create a new manager (with a default locale):
 
 ```php
-$manager = new TranslationManager('en');
+$manager = new Translator('en');
 ```
 
 and set the current user's locale:
@@ -334,10 +334,10 @@ It will have the same value (or translation) for every language.
 
 ## Fallbacks
 
-You can define fallbacks on the `TranslationManager`:
+You can define fallbacks on the `Translator`:
 
 ```php
-$manager = new TranslationManager('en', [
+$manager = new Translator('en', [
     'fr' => ['en'],       // french fallbacks to english if not found
     'es' => ['fr', 'en'], // spanish fallbacks to french, then english if not found
 ]);

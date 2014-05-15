@@ -2,7 +2,7 @@
 
 namespace Test\Mnapoli\Translated;
 
-use Mnapoli\Translated\TranslationManager;
+use Mnapoli\Translated\Translator;
 
 /**
  * @covers \Mnapoli\Translated\TranslationManager
@@ -11,7 +11,7 @@ class TranslationManagerTest extends \PHPUnit_Framework_TestCase
 {
     public function testSetCurrentContext()
     {
-        $manager = new TranslationManager('en', [
+        $manager = new Translator('en', [
             'fr' => ['en'],
         ]);
 
