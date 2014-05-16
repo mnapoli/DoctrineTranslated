@@ -46,7 +46,7 @@ abstract class AbstractTranslatedString
             throw new \InvalidArgumentException(sprintf('There is no language "%s" defined', $language));
         }
 
-        $this->{$language} = $translation;
+        $this->{$language} = (string) $translation;
     }
 
     /**
