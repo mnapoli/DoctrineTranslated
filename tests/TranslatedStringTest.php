@@ -86,4 +86,16 @@ class TranslatedStringTest extends \PHPUnit_Framework_TestCase
 
         $str->get('foobar');
     }
+
+    public function testFromArray()
+    {
+        $str = TranslatedString::fromArray([
+            'en' => 'Hello',
+            'fr' => 'Bonjour',
+        ]);
+
+        $this->assertEquals('Hello', $str->get('en'));
+        $this->assertEquals('Bonjour', $str->get('fr'));
+        $this->assertNull($str->get('de'));
+    }
 }

@@ -120,6 +120,34 @@ abstract class AbstractTranslatedString
     }
 
     /**
+     * Create a translated string from an array of translations.
+     *
+     * Example:
+     *
+     *     $string = TranslatedString::fromArray(
+     *         'en' => 'Hello',
+     *         'fr' => 'Bonjour',
+     *     )
+     *
+     * @param array $translations
+     *
+     * @return AbstractTranslatedString
+     */
+    public static function fromArray(array $translations)
+    {
+        /** @var AbstractTranslatedString $result */
+        $result = new static();
+
+        foreach ($translations as $lang => $translation) {
+            $result->set($translation, $lang);
+        }
+
+        return $result;
+    }
+
+    /**
+     * Joins strings into a single one.
+     *
      * @param array $strings Array containing strings or AbstractTranslatedString
      *
      * @throws \InvalidArgumentException The array must contain null, string or AbstractTranslatedString
