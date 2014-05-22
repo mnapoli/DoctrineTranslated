@@ -82,6 +82,8 @@ class TranslatedString extends \Mnapoli\Translated\AbstractTranslatedString
 }
 ```
 
+As you can see, the properties must be public.
+
 Here is the same mapping in YAML:
 
 ```yaml
