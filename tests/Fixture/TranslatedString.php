@@ -12,15 +12,15 @@ class TranslatedString extends  AbstractTranslatedString
     /**
      * @Column(type = "string", nullable=true)
      */
-    protected $en;
+    public $en;
 
     /**
      * @Column(type = "string", nullable=true)
      */
-    protected $fr;
+    public $fr;
 
     /**
      * @Column(type = "string", nullable=true)
      */
-    protected $de;
+    public $de;
 }

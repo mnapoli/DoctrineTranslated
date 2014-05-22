@@ -73,12 +73,12 @@ class TranslatedString extends \Mnapoli\Translated\AbstractTranslatedString
     /**
      * @Column(type = "string", nullable=true)
      */
-    protected $en;
+    public $en;
 
     /**
      * @Column(type = "string", nullable=true)
      */
-    protected $fr;
+    public $fr;
 }
 ```
 
@@ -101,10 +101,10 @@ You can then start translating that field:
 ```php
 $product = new Product();
 
-$product->getName()->set('Some english here', 'en');
-$product->getName()->set('Un peu de français là', 'fr');
+$product->getName()->en = 'Some english here';
+$product->getName()->fr = 'Un peu de français là';
 
-echo $product->getName()->get('en');
+echo $product->getName()->en;
 ```
 
 Usually in your application, you will not want to hardcode "en" or "fr" when reading or setting the value.
@@ -122,8 +122,8 @@ $translator = Translator('en');
 $translator->setLanguage('fr');
 
 $str = new TranslatedString();
-$str->set('foo', 'en');
-$str->set('bar', 'fr');
+$str->en = 'foo';
+$str->fr = 'bar';
 
 // No need to manipulate the locale here
 echo $translator->get($str); // foo
@@ -219,13 +219,13 @@ $str = $translator->set(new TranslatedString(), 'Hello');
 
 // Same as:
 $str = new TranslatedString();
-$str = $translator->set($str, 'Hello');
+$translator->set($str, 'Hello');
 ```
 
 
 ## Operations
 
-Sometimes you need to concatenate strings in a model, so you can't use the helper
+Sometimes you need to concatenate strings in a model, so you can't use the translator
 (and you maybe don't want to).
 
 You can do some basic operations on the translated strings.
@@ -234,14 +234,14 @@ You can do some basic operations on the translated strings.
 
 ```php
 $str1 = new TranslatedString();
-$str1->set('Hello', 'en');
-$str1->set('Bonjour', 'fr');
+$str1->en = 'Hello';
+$str1->fr = 'Bonjour';
 
 // $result is a TranslatedString
 $result = $str1->concat(' ', $user->getName());
 
 // Will echo "Hello John" or "Bonjour John" according to the locale
-echo $helper->get($result);
+echo $translator->get($result);
 ```
 
 You can also create a string concatenation from scratch:
@@ -264,7 +264,7 @@ $result = TranslatedString::implode(', ', [
 ]);
 
 // "foo, bar"
-echo $helper->get($result);
+echo $result->en;
 ```
 
 
@@ -307,6 +307,31 @@ $translator = new Translator('en', [
 ```
 
 As you can see, fallbacks are optional, and can be multiple.
+
+Now the translator will use those fallbacks:
+
+```php
+$str = new TranslatedString();
+$str->en = 'Hello!';
+
+// Will show nothing (no FR value)
+echo $str->fr;
+
+$translator->setLanguage('fr');
+// Will show "Hello!" because the french falls back to english if not defined
+echo $translator->get($str);
+```
+
+You will note that you can also directly use fallbacks on the TranslatedString object:
+
+```php
+// Nothing
+echo $str->fr;
+// Nothing
+echo $str->get('fr');
+// Will show "Hello!" (the fallback is "en")
+echo $str->get('fr', ['en']);
+```
 
 
 ## Doctrine
