@@ -171,6 +171,72 @@ translated:
     default_locale: %locale%
 ```
 
+The TranslatedBundle will automatically listen to the request's locale and configure the `Translator` accordingly.
+
+That means you have nothing to do: just use the Translator, and it will use the request's locale to translate things.
+
+If the current locale is not stored inside the request, you will need to set up an event listener manually.
+Here is an basic example using the session:
+
+```php
+class LocaleListener
+{
+    private $translator;
+    private $session;
+
+    public function __construct(Translator $translator)
+    {
+        $this->translator = $translator;
+    }
+
+    public function setSession(Session $session)
+    {
+        $this->session = $session;
+    }
+
+    public function onRequest(GetResponseEvent $event)
+    {
+        if (HttpKernelInterface::MASTER_REQUEST !== $event->getRequestType()) {
+            return;
+        }
+
+        $locale = $request->getSession()->get('_locale');
+        if ($locale) {
+            $this->translator->setLanguage($locale);
+        }
+    }
+
+    public function onLogin(InteractiveLoginEvent $event)
+    {
+        $user = $event->getAuthenticationToken()->getUser();
+        $lang = $user->getLanguage();
+
+        if ($lang) {
+            $this->session->set('_locale', $lang);
+        }
+    }
+}
+```
+
+When the user logs in, his/her locale is stored inside the session. Here is the configuration:
+
+```yaml
+services:
+    acme.locale.interactive_login_listener:
+        class: Acme\UserBundle\EventListener\LocaleListener
+        calls:
+            - [ setSession, [@session] ]
+        tags:
+            - { name: kernel.event_listener, event: security.interactive_login, method: onLogin }
+
+    acme.locale.kernel_request_listener:
+        class: Acme\UserBundle\EventListener\LocaleListener
+        calls:
+            - [ setSession, [@session] ]
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onRequest }
+```
+
 - Zend Framework 1
 
 ```php

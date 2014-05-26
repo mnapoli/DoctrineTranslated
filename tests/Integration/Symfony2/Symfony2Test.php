@@ -32,6 +32,23 @@ class Symfony2Test extends \PHPUnit_Framework_TestCase
         $this->assertEquals('fr', $container->get('translated.translator')->getLanguage());
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage The "translated.default_locale" configuration option must be defined
+     */
+    public function testMandatoryDefaultLocale()
+    {
+        $container = $this->getContainer();
+        $extension = new TranslatedExtension();
+
+        $container->registerExtension($extension);
+
+        $config = [
+            [],
+        ];
+        $extension->load($config, $container);
+    }
+
     public function testTranslator()
     {
         $container = $this->getContainer();
@@ -65,23 +82,6 @@ class Symfony2Test extends \PHPUnit_Framework_TestCase
         $extension->load($config, $container);
 
         $this->assertTrue($container->get('translated.twig_extension') instanceof TranslatedTwigExtension);
-    }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage The "translated.default_locale" configuration option must be defined
-     */
-    public function testMandatoryDefaultLocale()
-    {
-        $container = $this->getContainer();
-        $extension = new TranslatedExtension();
-
-        $container->registerExtension($extension);
-
-        $config = [
-            [],
-        ];
-        $extension->load($config, $container);
     }
 
     private function getContainer()

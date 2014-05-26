@@ -7,13 +7,21 @@
     </parameters>
 
     <services>
+
         <service id="translated.translator" class="Mnapoli\Translated\Translator">
             <argument>%translated.default_locale%</argument>
         </service>
+
         <service id="translated.twig_extension" class="Mnapoli\Translated\Integration\Twig\TranslatedTwigExtension">
             <argument type="service" id="translated.translator" />
             <tag name="twig.extension" />
         </service>
+
+        <service id="translated.listener.request_listener" class="Mnapoli\Translated\Integration\Symfony2\EventListener\LocaleListener">
+            <argument type="service" id="translated.translator" />
+            <tag name="kernel.event_listener" event="kernel.request" method="onRequest" />
+        </service>
+
     </services>
 
 </container>
