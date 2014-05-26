@@ -16,7 +16,8 @@
         "doctrine/orm": "2.5.*@dev"
     },
     "require-dev": {
-        "twig/twig": "~1.15"
+        "twig/twig": "~1.15",
+        "symfony/framework-bundle": "~2.4"
     },
     "minimum-stability": "dev",
     "prefer-stable": true

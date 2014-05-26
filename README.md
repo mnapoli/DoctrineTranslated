@@ -146,6 +146,31 @@ $extension = new \Mnapoli\Translated\Integration\Twig\TranslatedTwigExtension($t
 $twig->addExtension($extension);
 ```
 
+- Symfony 2
+
+The `Mnapoli\Translated\Integration\Symfony2\TranslatedBundle` is provided.
+You need to register the bundle in `AppKernel.php`:
+
+```php
+class AppKernel extends Kernel
+{
+    public function registerBundles()
+    {
+        $bundles = [
+            // ...
+            new \Mnapoli\Translated\Integration\Symfony2\TranslatedBundle(),
+        ];
+
+        // ...
+```
+
+Then in your `app/config/config.yml`:
+
+```yaml
+translated:
+    default_locale: %locale%
+```
+
 - Zend Framework 1
 
 ```php
