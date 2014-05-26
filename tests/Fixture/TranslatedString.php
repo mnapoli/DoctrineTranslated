@@ -7,7 +7,7 @@ use Mnapoli\Translated\AbstractTranslatedString;
 /**
  * @Embeddable
  */
-class TranslatedString extends  AbstractTranslatedString
+class TranslatedString extends AbstractTranslatedString
 {
     /**
      * @Column(type = "string", nullable=true)

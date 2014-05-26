@@ -10,7 +10,7 @@ use Test\Mnapoli\Translated\Fixture\TranslatedString;
  */
 class TranslateZend1HelperTest extends \PHPUnit_Framework_TestCase
 {
-    public function testConstructorNoParameters()
+    public function testTranslate()
     {
         $translator = $this->getMockBuilder('Mnapoli\Translated\Translator')
             ->disableOriginalConstructor()

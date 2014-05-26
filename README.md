@@ -131,13 +131,19 @@ $str->fr = 'bar';
 echo $translator->get($str); // foo
 ```
 
-Twig example (not implemented yet):
+Current integrations:
+
+- Twig
 
 ```twig
 {{ product.name|translate }}
 ```
 
-Current integrations:
+The configuration step is very straightforward:
+
+```php
+$twig->addExtension(new TranslateTwigHelper($translator));
+```
 
 - Zend Framework 1
 
