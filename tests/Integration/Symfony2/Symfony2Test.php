@@ -69,7 +69,7 @@ class Symfony2Test extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage The "default_locale" option must be set
+     * @expectedExceptionMessage The "translated.default_locale" configuration option must be defined
      */
     public function testMandatoryDefaultLocale()
     {

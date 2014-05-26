@@ -20,7 +20,7 @@ class TranslatedExtension extends Extension
         $loader->load('services.xml');
 
         if (!isset($config['default_locale'])) {
-            throw new \InvalidArgumentException('The "default_locale" option must be set');
+            throw new \InvalidArgumentException('The "translated.default_locale" configuration option must be defined');
         }
 
         $container->setParameter('translated.default_locale', $config['default_locale']);
