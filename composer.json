@@ -1,7 +1,7 @@
 {
     "name": "mnapoli/doctrine-translated",
     "description": "Translated strings for Doctrine",
-    "keywords": ["doctrine", "translatable", "translation", "translations", "i18n"],
+    "keywords": ["translated", "translatable", "translation", "translations", "doctrine", "i18n"],
     "homepage": "https://github.com/mnapoli/DoctrineTranslated",
     "license": "MIT",
     "type": "library",

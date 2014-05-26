@@ -1,24 +1,24 @@
 <?php
 
-namespace Test\Mnapoli\Translated\Helper\Twig;
+namespace Test\Mnapoli\Translated\Integration\Twig;
 
-use Mnapoli\Translated\Helper\Twig\TranslateTwigHelper;
+use Mnapoli\Translated\Integration\Twig\TranslatedTwigExtension;
 use Mnapoli\Translated\Translator;
 use Test\Mnapoli\Translated\Fixture\TranslatedString;
 use Twig_Environment;
 use Twig_Loader_String;
 
 /**
- * @covers \Mnapoli\Translated\Helper\Twig\TranslateTwigHelper
+ * @covers \Mnapoli\Translated\Integration\Twig\TranslatedTwigExtension
  */
-class TranslateTwigHelperTest extends \PHPUnit_Framework_TestCase
+class TwigTest extends \PHPUnit_Framework_TestCase
 {
     public function testFunctional()
     {
         $translator = new Translator('fr');
 
         $twig = new Twig_Environment(new Twig_Loader_String());
-        $twig->addExtension(new TranslateTwigHelper($translator));
+        $twig->addExtension(new TranslatedTwigExtension($translator));
 
         $string = new TranslatedString('foo', 'en');
         $string->fr = 'bar';
@@ -36,7 +36,7 @@ class TranslateTwigHelperTest extends \PHPUnit_Framework_TestCase
             ->method('get')
             ->will($this->returnValue('foo'));
 
-        $helper = new TranslateTwigHelper($translator);
+        $helper = new TranslatedTwigExtension($translator);
 
         $this->assertEquals('foo', $helper->translate(new TranslatedString()));
     }

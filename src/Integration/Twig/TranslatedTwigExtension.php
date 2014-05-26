@@ -1,11 +1,11 @@
 <?php
 
-namespace Mnapoli\Translated\Helper\Zend1;
+namespace Mnapoli\Translated\Integration\Twig;
 
 use Mnapoli\Translated\AbstractTranslatedString;
 use Mnapoli\Translated\Translator;
 
-class TranslateZend1Helper
+class TranslatedTwigExtension extends \Twig_Extension
 {
     /**
      * @var Translator
@@ -15,6 +15,13 @@ class TranslateZend1Helper
     public function __construct(Translator $translator)
     {
         $this->translator = $translator;
+    }
+
+    public function getFilters()
+    {
+        return [
+            new \Twig_SimpleFilter('translate', [$this, 'translate']),
+        ];
     }
 
     /**
@@ -27,5 +34,10 @@ class TranslateZend1Helper
     public function translate(AbstractTranslatedString $string)
     {
         return $this->translator->get($string);
+    }
+
+    public function getName()
+    {
+        return 'translated';
     }
 }

@@ -1,14 +1,14 @@
 <?php
 
-namespace Test\Mnapoli\Translated\Helper\Zend1;
+namespace Test\Mnapoli\Translated\Integration\Zend1;
 
-use Mnapoli\Translated\Helper\Zend1\TranslateZend1Helper;
+use Mnapoli\Translated\Integration\Zend1\TranslateZend1Helper;
 use Test\Mnapoli\Translated\Fixture\TranslatedString;
 
 /**
- * @covers \Mnapoli\Translated\Helper\Zend1\TranslateZend1Helper
+ * @covers \Mnapoli\Translated\Integration\Zend1\TranslateZend1Helper
  */
-class TranslateZend1HelperTest extends \PHPUnit_Framework_TestCase
+class Zend1Test extends \PHPUnit_Framework_TestCase
 {
     public function testTranslate()
     {

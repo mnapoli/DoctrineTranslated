@@ -118,7 +118,7 @@ Example:
 
 ```php
 // The default locale is "en" (you can provide a locale like "en_US" too, it will be parsed)
-$translator = Translator('en');
+$translator = \Mnapoli\Translated\Translator('en');
 
 // If a user is logged in, we can set the locale to the user's one
 $translator->setLanguage('fr');
@@ -142,24 +142,25 @@ Current integrations:
 The configuration step is very straightforward:
 
 ```php
-$twig->addExtension(new TranslateTwigHelper($translator));
+$extension = new \Mnapoli\Translated\Integration\Twig\TranslatedTwigExtension($translator);
+$twig->addExtension($extension);
 ```
 
 - Zend Framework 1
 
 ```php
-use Mnapoli\Translated\Helper\Zend1\TranslateZend1Helper;
-
-// In your Bootstrap
+    // In your Bootstrap
     protected function _initViewHelpers()
     {
         $this->bootstrap('View');
-        $view = $this->getResource('view');
 
         // Create or get $translator (\Mnapoli\Translated\Translator)
 
+        // Create the helper
+        $helper = new Mnapoli\Translated\Integration\Zend1\TranslateZend1Helper($translator);
+
         // The view helper will be accessible through the name "translate"
-        $view->registerHelper(new TranslateZend1Helper($translator), 'translate');
+        $this->getResource('view')->registerHelper($helper, 'translate');
     }
 ```
 

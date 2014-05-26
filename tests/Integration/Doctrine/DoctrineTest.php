@@ -1,6 +1,6 @@
 <?php
 
-namespace Test\Mnapoli\Translated;
+namespace Test\Mnapoli\Translated\Integration\Doctrine;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query;
@@ -20,7 +20,7 @@ class DoctrineTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $paths = [__DIR__ . '/Fixture'];
+        $paths = [__DIR__ . '/../../Fixture'];
         $dbParams = [
             'driver' => 'pdo_sqlite',
             'memory' => true,
@@ -28,7 +28,7 @@ class DoctrineTest extends \PHPUnit_Framework_TestCase
 
         // Create the entity manager
         $config = Setup::createAnnotationMetadataConfiguration($paths, true);
-        $config->addCustomStringFunction('TR', 'Mnapoli\Translated\Doctrine\TranslatedFunction');
+        $config->addCustomStringFunction('TR', 'Mnapoli\Translated\Integration\Doctrine\TranslatedFunction');
         $this->em = EntityManager::create($dbParams, $config);
 
         // Create the DB

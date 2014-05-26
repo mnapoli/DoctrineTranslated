@@ -1,6 +1,6 @@
 <?php
 
-namespace Mnapoli\Translated\Doctrine;
+namespace Mnapoli\Translated\Integration\Doctrine;
 
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
 use Doctrine\ORM\Query\AST\PathExpression;
