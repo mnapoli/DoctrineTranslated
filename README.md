@@ -1,6 +1,8 @@
 # Translated strings for Doctrine
 
-[![Build Status](https://travis-ci.org/mnapoli/DoctrineTranslated.svg?branch=master)](https://travis-ci.org/mnapoli/DoctrineTranslated) [![Coverage Status](https://coveralls.io/repos/mnapoli/DoctrineTranslated/badge.png)](https://coveralls.io/r/mnapoli/DoctrineTranslated)
+[![Build Status](https://travis-ci.org/mnapoli/DoctrineTranslated.svg?branch=master)](https://travis-ci.org/mnapoli/DoctrineTranslated)
+[![Coverage Status](https://coveralls.io/repos/mnapoli/DoctrineTranslated/badge.png)](https://coveralls.io/r/mnapoli/DoctrineTranslated)
+[![Total Downloads](https://poser.pugx.org/mnapoli/doctrine-translated/downloads.svg)](https://packagist.org/packages/mnapoli/doctrine-translated)
 
 This library is an alternative to the Translatable extension for Doctrine.
 
