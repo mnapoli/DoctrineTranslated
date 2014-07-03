@@ -8,7 +8,7 @@
 This library is an alternative to the Translatable extension for Doctrine.
 
 The basic idea is to shift from "something that magically manages several versions of the same entity"
-to "my entity has a field which has several translations".
+to "my entity's field is an object that contains several translations".
 
 It aims to be extremely simple and explicit on its behavior, so that it can be
 reliable, maintainable, easily extended and understood. The goal is to do more with less.
